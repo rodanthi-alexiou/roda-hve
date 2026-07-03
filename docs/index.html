@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Museum Sidekick — An HVE + CAIRA Walkthrough</title>
+  <meta name="description" content="Build a multimodal agentic museum guide with High Velocity Engineering, CAIRA, and the Microsoft Learn MCP, grounded live in the open Met Collection API." />
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav">
+      <a class="brand" href="index.html">
+        <span class="logo">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2 20.5 7v10L12 22 3.5 17V7L12 2Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+            <path d="M12 7v10M7.5 9.5l9 5M16.5 9.5l-9 5" stroke="currentColor" stroke-width="1.2"/>
+          </svg>
+        </span>
+        museum sidekick
+      </a>
+      <div class="nav-links">
+        <a href="index.html" class="active">Home</a>
+        <a href="getting-started.html">Getting Started</a>
+        <a href="walkthrough.html">Walkthrough</a>
+        <a href="reference.html">Reference</a>
+        <a href="https://github.com/rodanthi-alexiou/roda-hve">GitHub</a>
+      </div>
+    </nav>
+  </header>
+
+  <div class="hero">
+    <div class="wrap">
+      <p class="eyebrow">HVE &times; CAIRA &times; Learn MCP</p>
+      <h1>The Visitor's Agentic Sidekick</h1>
+      <p class="lead">
+        A hands-on walkthrough that shows partners how to use High Velocity
+        Engineering, CAIRA, and the Microsoft Learn MCP to build and ship a real
+        agentic application: a multimodal museum guide grounded live in the open
+        Met Collection API.
+      </p>
+      <div class="tags">
+        <span class="pill">TypeScript</span>
+        <span class="pill">Foundry Agent Service</span>
+        <span class="pill">GPT-4o vision</span>
+        <span class="pill">Azure Container Apps</span>
+        <span class="pill">azd</span>
+      </div>
+      <div class="btn-row">
+        <a class="btn btn-primary" href="getting-started.html">Start the walkthrough &rarr;</a>
+        <a class="btn btn-secondary" href="walkthrough.html">Jump to the 7 steps</a>
+      </div>
+    </div>
+  </div>
+
+  <main>
+    <section id="who">
+      <p class="eyebrow">Who this is for</p>
+      <h2>Prove that an agent with tools beats autocomplete</h2>
+      <p class="lead">
+        Built to pitch to a technical or semi-technical partner audience. Every
+        step is real and runnable, with the full HVE methodology
+        (research &rarr; plan &rarr; build &rarr; review) underneath and CAIRA
+        supplying the validated infrastructure and app scaffolding.
+      </p>
+    </section>
+
+    <section id="build">
+      <p class="eyebrow">What you will build</p>
+      <h2>A multimodal guide, grounded in open data</h2>
+      <div class="grid grid-3">
+        <div class="card">
+          <h3>Themed tours</h3>
+          <p class="muted">One sentence in, a curated, sequenced, narrated tour out, across departments and cultures.</p>
+        </div>
+        <div class="card">
+          <h3>Vision explanations</h3>
+          <p class="muted">GPT-4o vision reads real artwork and explains it in plain, friendly language.</p>
+        </div>
+        <div class="card">
+          <h3>Live retrieval</h3>
+          <p class="muted">Agentic tool-calling against the Met API, no baked-in dataset, no API key.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="blocks">
+      <p class="eyebrow">The three building blocks</p>
+      <h2>What powers the walkthrough</h2>
+      <div class="grid grid-3">
+        <div class="card">
+          <h3>HVE Core</h3>
+          <p class="muted">
+            The RPI workflow (Research, Plan, Implement, Review) keeps every step
+            grounded and verifiable instead of plausible.
+          </p>
+        </div>
+        <div class="card">
+          <h3>CAIRA</h3>
+          <p class="muted">
+            Reference architecture components for Foundry, Container Apps, the
+            agent API, and the React frontend, ready to adapt.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Microsoft Learn MCP</h3>
+          <p class="muted">
+            Live, grounded access to official docs so SDK usage is verified, not
+            guessed, during the Research phase.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="arc">
+      <p class="eyebrow">The demo arc</p>
+      <h2>Seven steps from spec to live</h2>
+      <div class="grid grid-2">
+        <a class="card" href="walkthrough.html#step-1">
+          <span class="num">1</span>
+          <h3>Scaffold the project</h3>
+          <p class="muted">Turn a one-paragraph spec into a buildable skeleton from CAIRA components.</p>
+        </a>
+        <a class="card" href="walkthrough.html#step-2">
+          <span class="num">2</span>
+          <h3>Wire Foundry Agent Service</h3>
+          <p class="muted">Add a conversational, vision-capable agent backed by GPT-4o.</p>
+        </a>
+        <a class="card" href="walkthrough.html#step-3">
+          <span class="num">3</span>
+          <h3>Build the Met tool layer</h3>
+          <p class="muted">Real tool-calling retrieval, plus the batched, cached N+1 fix live.</p>
+        </a>
+        <a class="card" href="walkthrough.html#step-4">
+          <span class="num">4</span>
+          <h3>Tests and self-heal</h3>
+          <p class="muted">Mock the Met API and let Copilot diagnose and fix its own failures.</p>
+        </a>
+        <a class="card" href="walkthrough.html#step-5">
+          <span class="num">5</span>
+          <h3>Infrastructure and CI/CD</h3>
+          <p class="muted">Provision Foundry and Container Apps from CAIRA IaC with azd.</p>
+        </a>
+        <a class="card" href="walkthrough.html#step-6">
+          <span class="num">6</span>
+          <h3>Hand a feature to the Coding Agent</h3>
+          <p class="muted">Delegate a new tool and review the pull request it opens.</p>
+        </a>
+        <a class="card" href="walkthrough.html#step-7">
+          <span class="num">7</span>
+          <h3>Deploy and demo</h3>
+          <p class="muted">One <code>azd up</code>, then the four signature aha moments.</p>
+        </a>
+        <a class="card" href="reference.html#accelerator">
+          <span class="num">&#9733;</span>
+          <h3>Golden accelerator</h3>
+          <p class="muted">Swap the tool layer to retarget the whole skeleton to any partner domain.</p>
+        </a>
+      </div>
+    </section>
+
+    <section id="start" class="center">
+      <p class="eyebrow">Start here</p>
+      <h2>Ready to build?</h2>
+      <p class="lead" style="margin: 0 auto 24px;">
+        Install the three building blocks, then work through the seven steps at
+        your own pace.
+      </p>
+      <div class="btn-row" style="justify-content: center;">
+        <a class="btn btn-primary" href="getting-started.html">Prerequisites and setup &rarr;</a>
+        <a class="btn btn-secondary" href="reference.html">Met API reference</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <span>Museum Sidekick walkthrough &middot; An HVE + CAIRA proof of concept</span>
+      <span>
+        <a href="https://github.com/microsoft/hve-core">HVE Core</a> &middot;
+        <a href="https://github.com/microsoft/CAIRA">CAIRA</a> &middot;
+        <a href="https://metmuseum.github.io/">Met API</a>
+      </span>
+    </div>
+  </footer>
+</body>
+</html>

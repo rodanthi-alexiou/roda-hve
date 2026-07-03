@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Walkthrough — Museum Sidekick</title>
+  <meta name="description" content="Seven steps from a one-paragraph spec to a live, multimodal agentic museum guide deployed on Azure." />
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav">
+      <a class="brand" href="index.html">
+        <span class="logo">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2 20.5 7v10L12 22 3.5 17V7L12 2Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+            <path d="M12 7v10M7.5 9.5l9 5M16.5 9.5l-9 5" stroke="currentColor" stroke-width="1.2"/>
+          </svg>
+        </span>
+        museum sidekick
+      </a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="getting-started.html">Getting Started</a>
+        <a href="walkthrough.html" class="active">Walkthrough</a>
+        <a href="reference.html">Reference</a>
+        <a href="https://github.com/rodanthi-alexiou/roda-hve">GitHub</a>
+      </div>
+    </nav>
+  </header>
+
+  <div class="hero">
+    <div class="wrap">
+      <p class="eyebrow">The seven-step build</p>
+      <h1>Walkthrough</h1>
+      <p class="lead">
+        From a one-paragraph spec to a live, multimodal agentic museum guide on
+        Azure. Every step runs the HVE loop (research, plan, implement, review)
+        and reuses CAIRA components instead of hand-written boilerplate.
+      </p>
+      <div class="chooser">
+        <a href="#step-1">1 &middot; Scaffold</a>
+        <a href="#step-2">2 &middot; Foundry Agent</a>
+        <a href="#step-3">3 &middot; Met Tools</a>
+        <a href="#step-4">4 &middot; Tests &amp; Self-Heal</a>
+        <a href="#step-5">5 &middot; Infra &amp; CI/CD</a>
+        <a href="#step-6">6 &middot; Coding Agent</a>
+        <a href="#step-7">7 &middot; Deploy &amp; Demo</a>
+      </div>
+    </div>
+  </div>
+
+  <main>
+    <!-- STEP 1 -->
+    <div class="step" id="step-1">
+      <div class="step-head">
+        <span class="badge">1</span>
+        <h2 class="mt-0">Scaffold the project</h2>
+      </div>
+      <p class="meta">Building blocks: HVE (RPI) &middot; CAIRA skill &middot; Learn MCP</p>
+      <p><strong>Goal:</strong> turn a one-paragraph spec into a working project skeleton for <code>agentic-sidekick</code>, composed from CAIRA reference components.</p>
+
+      <h3>Start from a spec, not a blank page</h3>
+      <p>Create a short spec file the agent can anchor to. Save it as <code>SPEC.md</code> in an empty project directory.</p>
+      <pre><code># agentic-sidekick
+
+A visitor-facing, multimodal agent that plans themed self-guided museum visits
+from the Met's open-access collection. Given a request like "Build me a 6-stop
+family tour on animals in art across cultures," it searches the Met API, filters
+to public-domain works with images, sequences the stops, writes narration, and
+renders a visual gallery.
+
+Stack: TypeScript, Foundry Agent Service (GPT-4o vision), Azure Container Apps,
+React frontend. Compose infrastructure and app scaffolding from CAIRA.</code></pre>
+
+      <h3>Research the scaffold</h3>
+      <p>Open Copilot Chat and run the Research phase. Point it at the spec, the installed CAIRA skill, and the Learn MCP.</p>
+      <pre><code>/rpi-research Scaffold the agentic-sidekick project from SPEC.md. Use the CAIRA
+skill to identify which reference components to copy: Foundry IaC, Container Apps
+IaC, the TypeScript Foundry Agent Service API, and the React frontend. Use the
+Microsoft Learn MCP to confirm the current project layout and dependencies for a
+Foundry Agent Service app. Do not write code yet; produce a research document.</code></pre>
+      <p>The Research phase inspects CAIRA, verifies the Foundry Agent Service shape against Microsoft Learn, and writes a research document under <code>.copilot-tracking/</code>. You should see one recommended structure with evidence:</p>
+      <pre><code>agentic-sidekick/
+  infra/                      # from CAIRA iac/foundry + iac/container-apps
+  src/
+    api/                      # from CAIRA app/api/typescript/foundry-agent-service
+      agent/                  # agent definition + tools (empty for now)
+      met/                    # Met tool layer (empty for now)
+    frontend/                 # from CAIRA app/frontend/typescript/react
+  azure.yaml                  # azd service map
+  package.json</code></pre>
+      <div class="callout tip">
+        <strong>Why this matters</strong>
+        <p>Because the Research phase cites specific CAIRA files and Learn doc pages, you can trust the plan is grounded in real components rather than a plausible guess. This is the core HVE benefit.</p>
+      </div>
+
+      <h3>Plan and implement</h3>
+      <p>Clear context between phases, then plan and implement.</p>
+      <pre><code>/clear
+/rpi-plan Create the implementation plan to scaffold agentic-sidekick from the
+research document. Copy the four CAIRA components into the structure the
+research recommends, wire azure.yaml, and leave the agent and Met tool
+directories as documented stubs.
+
+/clear
+/rpi-implement Execute the scaffold plan.</code></pre>
+      <p>Copilot copies the CAIRA components into place, adjusts names, and writes an <code>azure.yaml</code> that maps two services. Confirm the skeleton builds.</p>
+      <pre><code>npm install
+npm run build</code></pre>
+      <p class="muted">You now have a project that compiles but does not yet do anything intelligent. That is intentional. The next steps add the agent, then its tools.</p>
+    </div>
+
+    <!-- STEP 2 -->
+    <div class="step" id="step-2">
+      <div class="step-head">
+        <span class="badge">2</span>
+        <h2 class="mt-0">Wire Foundry Agent Service</h2>
+      </div>
+      <p class="meta">Building blocks: HVE (RPI) &middot; CAIRA API component &middot; Learn MCP</p>
+      <p><strong>Goal:</strong> make the skeleton talk. Add a conversational agent backed by Azure AI Foundry Agent Service with GPT-4o vision, so it can both chat and reason over images.</p>
+
+      <h3>Research the agent wiring</h3>
+      <p>The Foundry Agent Service SDK evolves, so ground this step in current docs before writing any code.</p>
+      <pre><code>/rpi-research Wire the agentic-sidekick API to Azure AI Foundry Agent Service.
+Use the Microsoft Learn MCP to confirm the current SDK for creating an agent,
+starting a thread, sending a message, and running the agent. Confirm how to
+attach an image to a message so GPT-4o vision can describe artwork. Base the
+implementation on the CAIRA foundry-agent-service reference. Produce a research
+document with cited Learn pages.</code></pre>
+
+      <h3>Plan and implement</h3>
+      <pre><code>/clear
+/rpi-plan Create the plan to add a chat endpoint and a vision-capable message
+path to the agent API, using the researched Foundry Agent Service SDK.
+
+/clear
+/rpi-implement Execute the agent-wiring plan.</code></pre>
+      <p>A minimal shape looks like the following. Treat it as an illustration; your generated code follows the exact SDK the Learn MCP confirmed.</p>
+      <pre><code>// src/api/agent/agent.ts
+import { AgentsClient } from "@azure/ai-agents";
+import { DefaultAzureCredential } from "@azure/identity";
+
+const client = new AgentsClient(
+  process.env.FOUNDRY_PROJECT_ENDPOINT!,
+  new DefaultAzureCredential()
+);
+
+export async function createSidekick() {
+  return client.createAgent(process.env.MODEL_DEPLOYMENT_NAME!, {
+    name: "museum-sidekick",
+    instructions:
+      "You are a friendly museum guide. Plan tours and explain artworks " +
+      "using only works you retrieved from the Met tool layer. Adapt tone " +
+      "to the visitor, including children.",
+  });
+}</code></pre>
+      <p>The multimodal path attaches an image URL to the message so GPT-4o vision can describe a work.</p>
+      <pre><code>// explain an artwork to a 10-year-old
+await client.createMessage(threadId, "user", [
+  { type: "text", text: "Explain this painting to a 10-year-old." },
+  { type: "image_url", imageUrl: { url: object.primaryImage } },
+]);</code></pre>
+
+      <h3>Configure and verify</h3>
+      <p>The CAIRA component reads its Foundry settings from the environment. Authentication uses <code>DefaultAzureCredential</code>, so sign in once with the Azure CLI.</p>
+      <pre><code>export FOUNDRY_PROJECT_ENDPOINT="https://&lt;your-project&gt;.services.ai.azure.com"
+export MODEL_DEPLOYMENT_NAME="gpt-4o"
+az login</code></pre>
+      <p>Run the API locally and send a plain chat message.</p>
+      <pre><code>npm run dev --workspace api
+
+curl -X POST http://localhost:3000/chat \
+  -H "Content-Type: application/json" \
+  -d '{"message":"Hi, what can you help me do at the Met?"}'</code></pre>
+      <p class="muted">You should get a friendly, general answer. It cannot yet retrieve real artworks; it has no tools. That is the next step, and it is where the demo becomes convincing.</p>
+    </div>
+
+    <!-- STEP 3 -->
+    <div class="step" id="step-3">
+      <div class="step-head">
+        <span class="badge">3</span>
+        <h2 class="mt-0">Build the Met tool layer</h2>
+      </div>
+      <p class="meta">Building blocks: HVE (RPI) &middot; Learn MCP for the tool-calling SDK</p>
+      <p><strong>Goal:</strong> give the agent real capabilities. Add tools that call the Met Collection API so the agent retrieves live, grounded artworks instead of inventing them. This is the retrieval layer, implemented as agentic tool-calling.</p>
+
+      <h3>The tools the agent needs</h3>
+      <table>
+        <thead>
+          <tr><th>Tool</th><th>Parameters</th><th>Met endpoint</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>search_collection</code></td><td><code>q</code>, <code>departmentId</code>, <code>medium</code>, <code>geoLocation</code>, <code>dateBegin</code>, <code>dateEnd</code>, <code>hasImages</code>, <code>isHighlight</code>, <code>isOnView</code>, <code>tags</code></td><td><code>/search</code></td></tr>
+          <tr><td><code>get_object</code></td><td><code>objectID</code></td><td><code>/objects/{id}</code></td></tr>
+          <tr><td><code>list_departments</code></td><td>none</td><td><code>/departments</code></td></tr>
+          <tr><td><code>build_tour</code> / <code>find_related</code></td><td>derived (sequence by tag, culture, period)</td><td>derived from the above</td></tr>
+        </tbody>
+      </table>
+
+      <h3>The guardrail: solve the N+1 fan-out live</h3>
+      <p>This is the signature engineering moment. The Met <code>/search</code> endpoint returns only an array of object IDs. To show anything, you must call <code>/objects/{id}</code> for each result. Done naively, a 40-result search fires 40 sequential requests. Have Copilot fix it on stage.</p>
+      <pre><code>/rpi-research Design the Met tool layer for agentic-sidekick. The /search
+endpoint returns only object IDs, so get_object must fan out to /objects/{id}.
+Design search_collection to batch and cache those fetches with a bounded
+concurrency limit, and to always filter hasImages=true and isPublicDomain=true
+so every returned work is safe to display. Use the Microsoft Learn MCP only if
+needed for the agent tool-calling registration API. Produce a research document.
+
+/clear
+/rpi-plan Plan the Met tool layer: a typed Met client, the four tools, batched
+and cached object fetching, and registration of the tools with the Foundry
+agent.
+
+/clear
+/rpi-implement Execute the Met tool layer plan.</code></pre>
+
+      <h3>What the batched, cached fetch looks like</h3>
+      <pre><code>// src/api/met/client.ts
+const BASE = "https://collectionapi.metmuseum.org/public/collection/v1";
+const cache = new Map&lt;number, MetObject&gt;();
+
+async function getObject(id: number): Promise&lt;MetObject | null&gt; {
+  if (cache.has(id)) return cache.get(id)!;
+  const res = await fetch(`${BASE}/objects/${id}`);
+  if (!res.ok) return null;
+  const obj = (await res.json()) as MetObject;
+  cache.set(id, obj);
+  return obj;
+}
+
+// bounded fan-out: never more than `limit` requests in flight
+async function getObjects(ids: number[], limit = 8): Promise&lt;MetObject[]&gt; {
+  const out: MetObject[] = [];
+  for (let i = 0; i &lt; ids.length; i += limit) {
+    const batch = ids.slice(i, i + limit).map(getObject);
+    out.push(...(await Promise.all(batch)).filter((o): o is MetObject =&gt; !!o));
+  }
+  return out;
+}
+
+export async function searchCollection(params: SearchParams): Promise&lt;MetObject[]&gt; {
+  const qs = new URLSearchParams({ hasImages: "true", ...toQuery(params) });
+  const res = await fetch(`${BASE}/search?${qs}`);
+  const { objectIDs } = (await res.json()) as { objectIDs: number[] | null };
+  if (!objectIDs) return [];
+  const objects = await getObjects(objectIDs.slice(0, 40));
+  // only public-domain works with a usable image
+  return objects.filter((o) =&gt; o.isPublicDomain &amp;&amp; o.primaryImage);
+}</code></pre>
+      <div class="callout warn">
+        <strong>The safety filters are not optional</strong>
+        <p>The <code>hasImages=true</code> filter and the <code>isPublicDomain</code> check are what make the demo safe to run live: every rendered work is CC0 and has an image.</p>
+      </div>
+
+      <h3>Verify grounded retrieval</h3>
+      <pre><code>curl -X POST http://localhost:3000/chat \
+  -H "Content-Type: application/json" \
+  -d '{"message":"Find three highlighted paintings of cats and tell me about them."}'</code></pre>
+      <p class="muted">The response should reference actual Met object titles and image URLs. That is the moment the agent stops guessing and starts retrieving.</p>
+    </div>
+
+    <!-- STEP 4 -->
+    <div class="step" id="step-4">
+      <div class="step-head">
+        <span class="badge">4</span>
+        <h2 class="mt-0">Tests and self-heal</h2>
+      </div>
+      <p class="meta">Building blocks: HVE (RPI implement and review)</p>
+      <p><strong>Goal:</strong> make the tool layer trustworthy. Add tests that mock the Met API, then use HVE's review loop to have Copilot diagnose and fix any failures it finds.</p>
+
+      <h3>Research, plan, implement the tests</h3>
+      <p>Mock the <code>fetch</code> calls so tests are deterministic and prove your logic: batching, caching, and the safety filters.</p>
+      <pre><code>/rpi-research Plan a test suite for the Met tool layer. Mock the Met API so
+tests never hit the network. Cover: search_collection returns only public-domain
+works with images, get_object caches so a repeated ID is fetched once, and the
+fan-out respects the concurrency limit. Produce a research document.
+
+/clear
+/rpi-plan Plan the test files and the mock harness from the research.
+
+/clear
+/rpi-implement Execute the test plan.</code></pre>
+      <p>A representative test asserts the caching behavior.</p>
+      <pre><code>// src/api/met/client.test.ts
+import { describe, it, expect, vi, beforeEach } from "vitest";
+import { searchCollection } from "./client";
+
+beforeEach(() =&gt; vi.restoreAllMocks());
+
+it("caches get_object so a repeated ID is fetched once", async () =&gt; {
+  const fetchSpy = vi.spyOn(globalThis, "fetch").mockImplementation((url) =&gt; {
+    if (String(url).includes("/search")) {
+      return jsonResponse({ objectIDs: [1, 1, 2] });
+    }
+    return jsonResponse(publicDomainObject(Number(String(url).split("/").pop())));
+  });
+
+  await searchCollection({ q: "cats" });
+
+  // /search once + two unique objects, not three
+  expect(fetchSpy).toHaveBeenCalledTimes(3);
+});</code></pre>
+
+      <h3>Let Copilot self-heal failures</h3>
+      <p>When a test fails, do not fix it by hand first. Feed the failure to the review loop and let the agent diagnose and repair it.</p>
+      <pre><code>/rpi-review The test suite has failures. Analyze the failing tests and the tool
+layer, identify the root cause, and produce a plan to fix it.
+
+/clear
+/rpi-implement Apply the fix from the review.</code></pre>
+      <div class="callout tip">
+        <strong>Why the self-heal loop works</strong>
+        <p>The review phase reads the test output as evidence. It is the same research-first discipline applied to debugging, so the agent converges on a real fix rather than thrashing.</p>
+      </div>
+    </div>
+
+    <!-- STEP 5 -->
+    <div class="step" id="step-5">
+      <div class="step-head">
+        <span class="badge">5</span>
+        <h2 class="mt-0">Infrastructure and CI/CD</h2>
+      </div>
+      <p class="meta">Building blocks: CAIRA IaC components &middot; HVE (RPI) &middot; Learn MCP</p>
+      <p><strong>Goal:</strong> make the app deployable. Bring in CAIRA's Foundry and Container Apps infrastructure as code, and wire the Azure Developer CLI so the whole system provisions and deploys with one command.</p>
+
+      <h3>The infrastructure you need</h3>
+      <ul>
+        <li>An Azure AI Foundry account and project with a GPT-4o deployment.</li>
+        <li>Two Azure Container Apps: the agent API and the React frontend.</li>
+        <li>Least-privilege role assignments so the API can call Foundry without secrets.</li>
+      </ul>
+      <p>CAIRA already provides all of this as Terraform reference architecture. You adapt it rather than authoring it.</p>
+
+      <h3>Research, plan, implement</h3>
+      <pre><code>/rpi-research Compose the infrastructure for agentic-sidekick from CAIRA. Use
+reference-architectures/iac/foundry for the Foundry account, project, and a
+GPT-4o deployment, and reference-architectures/iac/container-apps for two
+Container Apps (api and frontend). Use the Microsoft Learn MCP to confirm the
+current azd azure.yaml schema and how azd maps services to Container Apps.
+Produce a research document listing exactly which CAIRA files to copy and which
+variables to set.
+
+/clear
+/rpi-plan Plan the infrastructure: copy the CAIRA Terraform modules into infra/,
+parameterize the Foundry model deployment as gpt-4o, define two Container Apps,
+and complete azure.yaml so azd provisions and deploys both services.
+
+/clear
+/rpi-implement Execute the infrastructure plan.</code></pre>
+
+      <h3>The azd service map</h3>
+      <pre><code># azure.yaml
+name: agentic-sidekick
+metadata:
+  template: agentic-sidekick@1.0.0
+infra:
+  provider: terraform
+services:
+  api:
+    project: ./src/api
+    language: ts
+    host: containerapp
+  frontend:
+    project: ./src/frontend
+    language: ts
+    host: containerapp</code></pre>
+
+      <h3>The Foundry model deployment</h3>
+      <pre><code># infra/foundry/main.tf (excerpt, adapted from CAIRA)
+model_deployments = {
+  gpt-4o = {
+    model_name    = "gpt-4o"
+    model_version = "2024-11-20"
+    sku_capacity  = 30
+  }
+}</code></pre>
+
+      <h3>Validate before you provision</h3>
+      <pre><code>task bootstrap
+task validate
+azd provision --preview</code></pre>
+      <div class="callout warn">
+        <strong>Provisioning creates billable resources</strong>
+        <p>Keep the GPT-4o capacity modest for a demo and tear the environment down afterward with <code>azd down</code>.</p>
+      </div>
+    </div>
+
+    <!-- STEP 6 -->
+    <div class="step" id="step-6">
+      <div class="step-head">
+        <span class="badge">6</span>
+        <h2 class="mt-0">Hand a feature to the Coding Agent</h2>
+      </div>
+      <p class="meta">Building blocks: GitHub Coding Agent &middot; the tests and structure from earlier steps</p>
+      <p><strong>Goal:</strong> show delegated development. Assign a self-contained feature to the GitHub Coding Agent, then review the pull request it opens, live, while the room watches.</p>
+
+      <h3>Choose a well-shaped feature</h3>
+      <p>A new Met tool is ideal: <code>find_related_works</code>, which takes an object and returns thematically connected works using its tags, culture, and period. Steps 3 and 4 established the tool pattern and the test harness, so the agent has clear examples to follow.</p>
+
+      <h3>Write the issue</h3>
+      <pre><code>### Add a find_related_works tool
+
+Add a new agent tool `find_related_works(objectID)` to the Met tool layer.
+
+Behavior:
+- Fetch the source object with the existing get_object.
+- Search for works that share its tags, culture, or period.
+- Reuse the batched, cached fetch and the public-domain + image filters.
+- Return up to 6 related works, excluding the source object.
+
+Acceptance criteria:
+- Registered as a Foundry agent tool with a clear schema.
+- Unit tests mock the Met API and cover the tag-match and exclusion logic.
+- All existing tests still pass.</code></pre>
+
+      <h3>Delegate to the Coding Agent</h3>
+      <pre><code>gh issue create \
+  --title "Add a find_related_works tool" \
+  --body-file .github/ISSUE_find_related_works.md \
+  --assignee "@copilot"</code></pre>
+      <p>The Coding Agent works in the background: it reads the repository, follows the established tool and test patterns, implements the feature, runs the tests, and opens a pull request.</p>
+
+      <h3>Review the pull request</h3>
+      <ul>
+        <li>Does it reuse the batched, cached fetch rather than adding a second fan-out?</li>
+        <li>Does it keep the public-domain and image safety filters?</li>
+        <li>Do the new tests actually exercise the tag-match and exclusion logic?</li>
+        <li>Are the existing tests still green in CI?</li>
+      </ul>
+      <pre><code>gh pr checkout &lt;number&gt;
+npm test
+gh pr review &lt;number&gt; --approve</code></pre>
+      <div class="callout tip">
+        <strong>Human-in-the-loop</strong>
+        <p>If something is off, leave a review comment and let the Coding Agent revise. The back-and-forth is itself a compelling demo of human-in-the-loop delegation.</p>
+      </div>
+    </div>
+
+    <!-- STEP 7 -->
+    <div class="step" id="step-7">
+      <div class="step-head">
+        <span class="badge">7</span>
+        <h2 class="mt-0">Deploy and demo</h2>
+      </div>
+      <p class="meta">Building blocks: azd &middot; the full system from Steps 1 through 6</p>
+      <p><strong>Goal:</strong> ship it and show it. Deploy the whole system to Azure with one command, then run the four signature moments that prove an agent with tools beats autocomplete.</p>
+
+      <h3>Deploy with one command</h3>
+      <pre><code>azd up</code></pre>
+      <p><code>azd up</code> provisions the Foundry account, project, and GPT-4o deployment, creates the two Container Apps, builds and pushes both images, and prints the public frontend URL. Open it.</p>
+      <div class="callout">
+        <strong>First deploy takes a few minutes</strong>
+        <p>The first <code>azd up</code> provisions Foundry and Container Apps from scratch. Subsequent <code>azd deploy</code> runs, for code-only changes, are much faster.</p>
+      </div>
+
+      <h3>Run the four aha moments</h3>
+      <div class="grid grid-2">
+        <div class="card">
+          <span class="num">1</span>
+          <h3>Multi-step tour from one sentence</h3>
+          <pre><code>Build me a 6-stop family tour on
+animals in art across cultures.</code></pre>
+          <p class="muted">The agent searches multiple departments, filters to highlighted public-domain works, sequences the stops, writes kid-friendly narration, and renders a gallery.</p>
+        </div>
+        <div class="card">
+          <span class="num">2</span>
+          <h3>Multimodal explanation</h3>
+          <pre><code>Explain this painting to a 10-year-old.</code></pre>
+          <p class="muted">GPT-4o vision reads the actual image and explains it in plain, friendly language.</p>
+        </div>
+        <div class="card">
+          <span class="num">3</span>
+          <h3>Cross-cultural connections</h3>
+          <pre><code>How did different cultures depict cats?
+Show me examples.</code></pre>
+          <p class="muted">The agent uses the tag and culture fields to find related works across departments, reasoning about metadata.</p>
+        </div>
+        <div class="card">
+          <span class="num">4</span>
+          <h3>The feature you shipped</h3>
+          <pre><code>Find works related to this one.</code></pre>
+          <p class="muted">The tool the Coding Agent wrote returns thematically connected pieces, closing the loop from delegated development to live feature.</p>
+        </div>
+      </div>
+
+      <h3>The enterprise hook</h3>
+      <p>After the consumer demo lands, reframe for partners. The same agent, pointed at a curator's workflow, assembles a themed collection and drafts exhibit labels in minutes. The visitor experience and the productivity tool are the same system.</p>
+
+      <h3>Clean up</h3>
+      <p>Tear down the environment when you are done to stop billing.</p>
+      <pre><code>azd down --purge</code></pre>
+
+      <div class="btn-row">
+        <a class="btn btn-primary" href="reference.html#accelerator">See how this generalizes &rarr;</a>
+        <a class="btn btn-secondary" href="index.html">Back to Home</a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <span>Museum Sidekick walkthrough &middot; An HVE + CAIRA proof of concept</span>
+      <span>
+        <a href="https://github.com/microsoft/hve-core">HVE Core</a> &middot;
+        <a href="https://github.com/microsoft/CAIRA">CAIRA</a> &middot;
+        <a href="https://metmuseum.github.io/">Met API</a>
+      </span>
+    </div>
+  </footer>
+</body>
+</html>

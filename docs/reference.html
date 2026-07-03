@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reference — Museum Sidekick</title>
+  <meta name="description" content="CAIRA component mapping and the Met Collection API endpoints, fields, and agent-tool reference used throughout the walkthrough." />
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav">
+      <a class="brand" href="index.html">
+        <span class="logo">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2 20.5 7v10L12 22 3.5 17V7L12 2Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+            <path d="M12 7v10M7.5 9.5l9 5M16.5 9.5l-9 5" stroke="currentColor" stroke-width="1.2"/>
+          </svg>
+        </span>
+        museum sidekick
+      </a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="getting-started.html">Getting Started</a>
+        <a href="walkthrough.html">Walkthrough</a>
+        <a href="reference.html" class="active">Reference</a>
+        <a href="https://github.com/rodanthi-alexiou/roda-hve">GitHub</a>
+      </div>
+    </nav>
+  </header>
+
+  <div class="hero">
+    <div class="wrap">
+      <p class="eyebrow">Reference</p>
+      <h1>Accelerator and API reference</h1>
+      <p class="lead">
+        How the CAIRA reference components map to the system, and the full Met
+        Collection API endpoints, fields, and agent-tool mapping used throughout
+        the build.
+      </p>
+      <div class="chooser">
+        <a href="#accelerator">CAIRA accelerator</a>
+        <a href="#met-api">Met API</a>
+        <a href="#tools">Agent tools</a>
+      </div>
+    </div>
+  </div>
+
+  <main>
+    <!-- CAIRA ACCELERATOR -->
+    <section id="accelerator">
+      <p class="eyebrow">Golden accelerator</p>
+      <h2>CAIRA as a reusable accelerator</h2>
+      <p>
+        The Museum Sidekick is a demo, but the pattern under it is a reusable
+        accelerator. Almost everything except the Met tool layer came from CAIRA,
+        so partners spend their time on domain logic, not on infrastructure and
+        scaffolding.
+      </p>
+
+      <h3>The component mapping</h3>
+      <table>
+        <thead>
+          <tr><th>System layer</th><th>CAIRA component</th><th>What you customized</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Foundry + models</td><td><code>reference-architectures/iac/foundry/</code></td><td>Model set to GPT-4o with vision</td></tr>
+          <tr><td>Hosting</td><td><code>reference-architectures/iac/container-apps/</code></td><td>Two apps: api and frontend</td></tr>
+          <tr><td>Agent API</td><td><code>reference-architectures/app/api/typescript/foundry-agent-service/</code></td><td>Agent instructions and tool registration</td></tr>
+          <tr><td>Frontend</td><td><code>reference-architectures/app/frontend/typescript/react/</code></td><td>Chat, gallery grid, and tour view</td></tr>
+          <tr><td>Retrieval</td><td>none (you built it)</td><td>The Met tool layer</td></tr>
+        </tbody>
+      </table>
+
+      <h3>The one layer that changes</h3>
+      <p>
+        The Met tool layer is the only domain-specific code in the whole system.
+        Everything else is reusable. To retarget the accelerator, you swap that
+        layer for tools over a different data source.
+      </p>
+      <table>
+        <thead>
+          <tr><th>Partner domain</th><th>Data source behind the tools</th><th>Example capability</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Retail</td><td>Product catalog API</td><td>"Build me a capsule wardrobe under a budget"</td></tr>
+          <tr><td>Software vendor</td><td>Product documentation</td><td>"Walk me through setting up feature X"</td></tr>
+          <tr><td>Enterprise IT</td><td>Internal knowledge base</td><td>"Assemble an onboarding path for a new hire"</td></tr>
+          <tr><td>Field services</td><td>Equipment and manuals API</td><td>"Diagnose this part from a photo"</td></tr>
+        </tbody>
+      </table>
+      <p class="muted">
+        Each of these reuses the Foundry agent, the Container Apps hosting, the
+        React shell, the tests-and-self-heal loop, and the deploy flow unchanged.
+        Only the tool layer and the agent's instructions change.
+      </p>
+      <div class="callout tip">
+        <strong>Why this matters for the HVE story</strong>
+        <p>
+          HVE's research-first RPI loop keeps every step grounded and verifiable,
+          and CAIRA supplies validated infrastructure and scaffolding. Together
+          they turn "build an agentic app" from a weeks-long project into a
+          guided, repeatable path a partner can follow with their own data on day
+          one.
+        </p>
+      </div>
+    </section>
+
+    <!-- MET API -->
+    <section id="met-api">
+      <p class="eyebrow">Met Collection API</p>
+      <h2>API reference</h2>
+      <p>The Met Collection API is open, keyless, and returns CC0 public-domain metadata.</p>
+      <table>
+        <thead>
+          <tr><th>Property</th><th>Value</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Base URL</td><td><code>https://collectionapi.metmuseum.org/public/collection/v1</code></td></tr>
+          <tr><td>Authentication</td><td>None</td></tr>
+          <tr><td>License</td><td>CC0 (public domain) for flagged objects</td></tr>
+          <tr><td>Rate limit</td><td>80 requests per second</td></tr>
+          <tr><td>Objects</td><td>470,000+</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Endpoints</h3>
+      <table>
+        <thead>
+          <tr><th>Endpoint</th><th>Returns</th><th>Notes</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>/search</code></td><td>An array of object IDs only</td><td>You must fan out to <code>/objects/{id}</code> for details</td></tr>
+          <tr><td><code>/objects/{id}</code></td><td>Full metadata and image URLs</td><td>The workhorse; batch and cache these calls</td></tr>
+          <tr><td><code>/objects</code></td><td>All object IDs and a total</td><td>Rarely needed for the demo</td></tr>
+          <tr><td><code>/departments</code></td><td>The list of departments</td><td>Powers themed, cross-department tours</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Key search filters</h3>
+      <p>Pass these as query parameters on <code>/search</code>.</p>
+      <table>
+        <thead>
+          <tr><th>Filter</th><th>Purpose</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>q</code></td><td>Free-text query (required by <code>/search</code>)</td></tr>
+          <tr><td><code>isHighlight</code></td><td>Limit to curator-highlighted works</td></tr>
+          <tr><td><code>hasImages</code></td><td>Limit to works with images (always use this)</td></tr>
+          <tr><td><code>isOnView</code></td><td>Limit to works currently on display</td></tr>
+          <tr><td><code>departmentId</code></td><td>Limit to a department</td></tr>
+          <tr><td><code>medium</code></td><td>Filter by medium, for example Paintings</td></tr>
+          <tr><td><code>geoLocation</code></td><td>Filter by geographic location</td></tr>
+          <tr><td><code>tags</code></td><td>Filter by subject tags, for example Cats</td></tr>
+          <tr><td><code>dateBegin</code> / <code>dateEnd</code></td><td>Filter by date range</td></tr>
+          <tr><td><code>artistOrCulture</code></td><td>Match against the artist or culture field</td></tr>
+          <tr><td><code>title</code></td><td>Match against the title field</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Key object fields</h3>
+      <p>Returned by <code>/objects/{id}</code>.</p>
+      <table>
+        <thead>
+          <tr><th>Field</th><th>Use</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>isPublicDomain</code></td><td>Only display when true</td></tr>
+          <tr><td><code>primaryImage</code></td><td>The full-resolution image URL</td></tr>
+          <tr><td><code>department</code></td><td>Grouping for cross-department tours</td></tr>
+          <tr><td><code>culture</code></td><td>Powers cross-cultural connections</td></tr>
+          <tr><td><code>period</code></td><td>Sequences works by era</td></tr>
+          <tr><td><code>medium</code></td><td>Describes the material</td></tr>
+          <tr><td><code>tags</code></td><td>Subject tags for finding related works</td></tr>
+          <tr><td><code>title</code></td><td>Display title</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- AGENT TOOLS -->
+    <section id="tools">
+      <p class="eyebrow">Agent tools</p>
+      <h2>Agent tool mapping</h2>
+      <p>Each agent tool maps to one or more endpoints.</p>
+      <table>
+        <thead>
+          <tr><th>Agent tool</th><th>Parameters</th><th>Endpoint</th><th>Notes</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>search_collection</code></td><td><code>q</code>, <code>departmentId</code>, <code>medium</code>, <code>geoLocation</code>, <code>dateBegin</code>, <code>dateEnd</code>, <code>hasImages</code>, <code>isHighlight</code>, <code>isOnView</code>, <code>tags</code></td><td><code>/search</code></td><td>Returns IDs; the tool fans out to get objects</td></tr>
+          <tr><td><code>get_object</code></td><td><code>objectID</code></td><td><code>/objects/{id}</code></td><td>Batched and cached in the tool layer</td></tr>
+          <tr><td><code>list_departments</code></td><td>none</td><td><code>/departments</code></td><td>Enables themed, cross-department tours</td></tr>
+          <tr><td><code>build_tour</code></td><td>derived</td><td>derived</td><td>Sequences results by tag, culture, or period</td></tr>
+          <tr><td><code>find_related</code></td><td><code>objectID</code></td><td>derived</td><td>Matches on shared tags, culture, or period</td></tr>
+        </tbody>
+      </table>
+
+      <h3>The N+1 guardrail</h3>
+      <p>
+        Because <code>/search</code> returns only IDs, retrieving details for a
+        result set is an N+1 problem. The tool layer solves it with a batched,
+        cached fetch that caps concurrency and filters to public-domain works with
+        images. See <a href="walkthrough.html#step-3">Step 3</a> for the
+        implementation.
+      </p>
+
+      <h3>Official documentation</h3>
+      <p>
+        For the authoritative API details, see the
+        <a href="https://metmuseum.github.io/">Met Collection API documentation</a>.
+      </p>
+
+      <div class="btn-row">
+        <a class="btn btn-primary" href="walkthrough.html">Back to the walkthrough &rarr;</a>
+        <a class="btn btn-secondary" href="index.html">Home</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <span>Museum Sidekick walkthrough &middot; An HVE + CAIRA proof of concept</span>
+      <span>
+        <a href="https://github.com/microsoft/hve-core">HVE Core</a> &middot;
+        <a href="https://github.com/microsoft/CAIRA">CAIRA</a> &middot;
+        <a href="https://metmuseum.github.io/">Met API</a>
+      </span>
+    </div>
+  </footer>
+</body>
+</html>
