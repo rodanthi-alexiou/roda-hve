@@ -34,6 +34,30 @@ resource "azurerm_log_analytics_workspace" "main" {
   tags                = local.tags
 }
 
+# Application Insights for agent logs & analytics (workspace-based), sharing the
+# Log Analytics workspace above. The connection string is injected into the API
+# container app so the app's telemetry module can export traces and metrics.
+# Local (instrumentation-key) auth is disabled so ingestion is authenticated
+# exclusively with Microsoft Entra ID via the app's managed identity.
+resource "azurerm_application_insights" "main" {
+  name                         = "appi-${local.resource_token}"
+  location                     = azurerm_resource_group.main.location
+  resource_group_name          = azurerm_resource_group.main.name
+  workspace_id                 = azurerm_log_analytics_workspace.main.id
+  application_type             = "web"
+  local_authentication_enabled = false
+  tags                         = local.tags
+}
+
+# Allow the app's managed identity to ingest telemetry into Application Insights
+# using Microsoft Entra ID (passwordless). "Monitoring Metrics Publisher"
+# authorizes publishing all telemetry, not just metrics.
+resource "azurerm_role_assignment" "metrics_publisher_app" {
+  scope                = azurerm_application_insights.main.id
+  role_definition_name = "Monitoring Metrics Publisher"
+  principal_id         = azurerm_user_assigned_identity.app.principal_id
+}
+
 # --- Identity & registry ------------------------------------------------------
 
 resource "azurerm_user_assigned_identity" "app" {
@@ -164,6 +188,11 @@ resource "azurerm_container_app" "api" {
       env {
         name  = "AZURE_OPENAI_API_VERSION"
         value = "2024-10-21"
+      }
+      # Application Insights connection string for agent logs & analytics.
+      env {
+        name  = "APPLICATIONINSIGHTS_CONNECTION_STRING"
+        value = azurerm_application_insights.main.connection_string
       }
       # Tells DefaultAzureCredential which user-assigned identity to use.
       env {

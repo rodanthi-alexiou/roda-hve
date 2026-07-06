@@ -21,6 +21,13 @@ import type {
 } from "openai/resources/index";
 import { dispatchTool, metTools } from "../met/tools.js";
 import type { ArtworkCard } from "../met/types.js";
+import {
+  startTimer,
+  trackDependency,
+  trackEvent,
+  trackException,
+  trackMetric,
+} from "../telemetry/telemetry.js";
 
 /** Max tool-calling rounds before we force a final answer (cost guardrail). */
 const MAX_STEPS = 5;
@@ -93,6 +100,12 @@ export interface AgentResult {
   cards: ArtworkCard[];
 }
 
+/** Optional per-turn context used to correlate telemetry. */
+export interface AgentContext {
+  /** Correlation id shared with the originating chat request. */
+  turnId?: string;
+}
+
 /**
  * Run one agent turn. `messages` is the prior user/assistant conversation
  * (the caller builds the latest user message, optionally with an image content
@@ -100,9 +113,11 @@ export interface AgentResult {
  */
 export async function runAgent(
   messages: ChatCompletionMessageParam[],
+  ctx: AgentContext = {},
 ): Promise<AgentResult> {
   const azure = getClient();
   const model = process.env.AZURE_OPENAI_DEPLOYMENT ?? "gpt-4o";
+  const turnId = ctx.turnId;
 
   const convo: ChatCompletionMessageParam[] = [
     { role: "system", content: SYSTEM_PROMPT },
@@ -110,33 +125,86 @@ export async function runAgent(
   ];
 
   const cardsById = new Map<number, ArtworkCard>();
+  let stepsUsed = 0;
 
   for (let step = 0; step < MAX_STEPS; step++) {
-    const completion = await azure.chat.completions.create({
-      model,
-      messages: convo,
-      tools: metTools,
-      max_tokens: 800,
+    stepsUsed = step + 1;
+    const stop = startTimer();
+    let completion;
+    try {
+      completion = await azure.chat.completions.create({
+        model,
+        messages: convo,
+        tools: metTools,
+        max_tokens: 800,
+      });
+    } catch (err) {
+      trackDependency({
+        name: "AzureOpenAI chat.completions",
+        data: model,
+        type: "Azure OpenAI",
+        duration: stop(),
+        success: false,
+        properties: { turnId, step },
+      });
+      trackException(err, { turnId, phase: "model", step });
+      throw err;
+    }
+    trackDependency({
+      name: "AzureOpenAI chat.completions",
+      data: model,
+      type: "Azure OpenAI",
+      duration: stop(),
+      success: true,
+      properties: { turnId, step },
     });
+    if (completion.usage) {
+      trackMetric("openai.total_tokens", completion.usage.total_tokens, {
+        turnId,
+        step,
+      });
+    }
 
     const message = completion.choices[0].message;
     convo.push(message);
 
     const toolCalls = message.tool_calls;
     if (!toolCalls || toolCalls.length === 0) {
+      trackEvent(
+        "AgentComplete",
+        { turnId, stopped: false },
+        { steps: stepsUsed, cardCount: cardsById.size },
+      );
       return { content: message.content ?? "", cards: [...cardsById.values()] };
     }
 
     for (const call of toolCalls) {
       if (call.type !== "function") continue;
+      const toolStop = startTimer();
       let result: string;
+      let success = true;
       try {
         result = await dispatchTool(call.function.name, call.function.arguments);
       } catch (err) {
+        success = false;
         result = JSON.stringify({
           error: err instanceof Error ? err.message : String(err),
         });
       }
+      trackDependency({
+        name: `Tool ${call.function.name}`,
+        data: call.function.arguments,
+        type: "InProc",
+        duration: toolStop(),
+        success,
+        properties: { turnId, step },
+      });
+      trackEvent("ToolCall", {
+        turnId,
+        step,
+        tool: call.function.name,
+        success,
+      });
       for (const card of extractCards(result)) {
         cardsById.set(card.objectID, card);
       }
@@ -145,11 +213,31 @@ export async function runAgent(
   }
 
   // Hit the step ceiling — ask for a final answer with no further tools.
+  const finalStop = startTimer();
   const final = await azure.chat.completions.create({
     model,
     messages: convo,
     max_tokens: 800,
   });
+  trackDependency({
+    name: "AzureOpenAI chat.completions",
+    data: model,
+    type: "Azure OpenAI",
+    duration: finalStop(),
+    success: true,
+    properties: { turnId, step: "final" },
+  });
+  if (final.usage) {
+    trackMetric("openai.total_tokens", final.usage.total_tokens, {
+      turnId,
+      step: "final",
+    });
+  }
+  trackEvent(
+    "AgentComplete",
+    { turnId, stopped: true },
+    { steps: stepsUsed, cardCount: cardsById.size },
+  );
   return {
     content: final.choices[0].message.content ?? "",
     cards: [...cardsById.values()],

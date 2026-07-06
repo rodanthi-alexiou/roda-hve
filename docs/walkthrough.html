@@ -50,6 +50,7 @@
         <a href="#step-6">6 &middot; Coding Agent</a>
         <a href="#step-7">7 &middot; Deploy &amp; Demo</a>
         <a href="#features">&check; Live today</a>
+        <a href="#roadmap">&#9733; HVE case study</a>
       </div>
     </div>
   </div>
@@ -556,29 +557,133 @@ Show me examples.</code></pre>
     </section>
 
     <section id="roadmap">
-      <p class="eyebrow">What we build next</p>
-      <h2>The baseline is live &mdash; now the fun part</h2>
+      <p class="eyebrow">The methodology, applied</p>
+      <h2>Case study: shipping observability with HVE</h2>
       <p class="lead">
-        The features above are the floor, not the ceiling. From here we start
-        layering on top of the POC, each increment chosen to show a different
-        piece of HVE value in action. First up is making the agent observable.
+        The baseline above was the floor. The first feature we layered on top was
+        making the agent observable &mdash; and we built it the HVE way, on
+        purpose, to showcase the methodology end to end. What follows is not a
+        plan; it is what actually happened. One RPI agent ran the loop, and when
+        an architectural fork appeared, we handed it to a specialist reviewer.
       </p>
-      <div class="card" style="border-color: var(--green-soft); background: var(--green-soft);">
-        <span class="pill" style="color: var(--green); border-color: var(--green-soft); background: #fff;">Next SDLC phase &middot; with HVE</span>
-        <h3 style="margin-top: 14px;">Agent logs &amp; analytics</h3>
-        <p class="muted">
-          Work with HVE to instrument the agent: capture every turn, tool call,
-          latency, and token cost, then surface it all in a dashboard. This is the
-          "review" phase of the HVE loop made observable &mdash; the difference
-          between an agent you hope works and one you can prove is working. This is
-          the phase I am building next.
+
+      <div class="callout tip">
+        <strong>Why observability first, and why show the process</strong>
+        <p>
+          Once every agent turn is logged and measurable, every feature after it
+          can be evaluated instead of guessed at. But the feature itself is only
+          half the point &mdash; the other half is demonstrating <em>how</em> HVE
+          drives a real SDLC increment: research before code, a plan you can
+          audit, an implementation that self-heals, and a durable decision record
+          when the architecture forks.
         </p>
       </div>
+
+      <h3 style="margin-top: 28px;">1 &middot; The RPI agent ran the full loop</h3>
+      <p>
+        Rather than hand-instrumenting the API, we gave the work to the
+        autonomous <strong>RPI agent</strong>, which drove all five phases of the
+        HVE loop &mdash; <strong>Research, Plan, Implement, Review, Discover</strong>
+        &mdash; in a single session. It researched the current
+        <code>applicationinsights</code> SDK and passwordless ingestion against
+        Microsoft Learn, produced an auditable plan, implemented the telemetry
+        module, and then reviewed and self-healed its own work.
+      </p>
+
+      <figure class="shot">
+        <img src="assets/rpi-complete.png" alt="The RPI agent's completion summary: a Research, Plan, Implement, Review, Discover checklist all marked done, a note that the telemetry work is validated after one self-healed iteration, and a Suggested Next Work list." />
+        <figcaption>The RPI agent reporting <code>Complete</code> &mdash; all five phases green, and the discover phase already proposing what to build next.</figcaption>
+      </figure>
+
+      <p>What the agent actually shipped in this one increment:</p>
+      <div class="grid grid-2" style="margin-top: 14px;">
+        <div class="card">
+          <h3>Passwordless telemetry</h3>
+          <p class="muted">Structured JSON per turn to stdout always, plus a lazily-initialized Application Insights path that authenticates with <code>DefaultAzureCredential</code> over Entra ID &mdash; local auth disabled, no connection-string secret.</p>
+        </div>
+        <div class="card">
+          <h3>Self-heal in the loop</h3>
+          <p class="muted">The review phase caught a <code>setAutoCollectPerformance</code> arity bug the implement phase introduced and fixed it &mdash; one iteration, no human patch. That is the "review" phase of HVE made concrete.</p>
+        </div>
+        <div class="card">
+          <h3>Least-privilege ingestion</h3>
+          <p class="muted">The app's managed identity holds only the <em>Monitoring Metrics Publisher</em> role on Application Insights &mdash; the same secure-by-default posture the rest of the POC uses.</p>
+        </div>
+        <div class="card">
+          <h3>A discover handoff</h3>
+          <p class="muted">The final phase didn't just stop &mdash; it enumerated the next moves (redeploy, KQL dashboards, trace correlation), turning one feature into a ranked backlog for the next loop.</p>
+        </div>
+      </div>
+
+      <h3 style="margin-top: 28px;">2 &middot; A fork appeared, so we called the System Architecture Reviewer</h3>
+      <p>
+        Mid-flight, a genuinely architectural question surfaced that the RPI loop
+        should not answer on its own: <em>would moving from the
+        <code>AzureOpenAI</code> client to a Foundry Agent client change the
+        observability implementation, and where does OpenTelemetry fit into the
+        schema?</em> This is exactly the kind of significant, reversible decision
+        HVE says to escalate &mdash; so we invoked the
+        <strong>System Architecture Reviewer</strong> agent.
+      </p>
+      <p>
+        It scoped the review to the relevant Well-Architected pillars
+        (Operational Excellence, Cost, Security), analyzed the current bespoke
+        Application Insights schema against the OpenTelemetry GenAI semantic
+        conventions, weighed the Foundry-migration trade-off, and grounded every
+        claim in Microsoft Learn.
+      </p>
+
+      <h3>What it created: an ADR</h3>
+      <p>
+        The reviewer captured the outcome as an <strong>Architectural Decision
+        Record</strong> &mdash;
+        <code>docs/decisions/2026-07-07-agent-observability-otel-genai-v01.md</code>
+        &mdash; so the reasoning outlives the chat session. Its decision, in four
+        parts:
+      </p>
+      <div class="grid grid-2" style="margin-top: 14px;">
+        <div class="card">
+          <span class="num">1</span>
+          <h3>Keep the current client</h3>
+          <p class="muted">Stay on the <code>AzureOpenAI</code> chat-completions client and local tool loop for the POC &mdash; cheaper, no server-side state, deterministic to test. Don't migrate just to improve telemetry.</p>
+        </div>
+        <div class="card">
+          <span class="num">2</span>
+          <h3>Adopt OTel GenAI conventions</h3>
+          <p class="muted">Emit real spans &mdash; one per turn with nested model and tool child spans tagged <code>gen_ai.*</code> &mdash; replacing the bespoke dependency types and the <code>turnId</code> string correlation.</p>
+        </div>
+        <div class="card">
+          <span class="num">3</span>
+          <h3>Prefer the Azure Monitor OTel Distro</h3>
+          <p class="muted">Use <code>@azure/monitor-opentelemetry</code> as the ingestion path over the classic <code>TelemetryClient</code> surface, keeping the passwordless managed-identity config.</p>
+        </div>
+        <div class="card">
+          <span class="num">4</span>
+          <h3>Defer the Foundry migration</h3>
+          <p class="muted">Only switch to the Foundry Agent client when server-side tools or managed threads are actually needed &mdash; then its built-in tracing becomes a real reason, not a guess.</p>
+        </div>
+      </div>
+      <div class="callout tip">
+        <strong>Why an ADR, and why a second agent</strong>
+        <p>
+          The RPI agent is built to ship code; the System Architecture Reviewer is
+          built to weigh trade-offs and produce a durable record. Splitting the
+          work is the HVE point: the right agent for the right job, and a decision
+          anyone can re-read months later instead of re-litigating.
+        </p>
+      </div>
+
+      <h3 id="planned-next" style="margin-top: 28px;">What the discover phase queued up next</h3>
+      <p class="lead">
+        The observability increment is shipped and validated. The RPI agent's own
+        discover phase &mdash; visible in the screenshot above &mdash; ranked the
+        follow-on work. Each item becomes its own mini-loop.
+      </p>
       <div class="grid grid-2" style="margin-top: 18px;">
         <div class="card" style="border-style: dashed;">
           <span class="pill">Planned</span>
           <h3 style="margin-top: 14px;">Evaluation and tracing</h3>
-          <p class="muted">Build on the logs with agent evals and traces so we can prove the thing actually got better, not just different. Analytics turned into a quality gate.</p>
+          <p class="muted">Implement the ADR's OTel GenAI spans, then build agent evals on top so we can prove the thing actually got better, not just different. Analytics turned into a quality gate.</p>
         </div>
         <div class="card" style="border-style: dashed;">
           <span class="pill">Planned</span>
@@ -597,12 +702,14 @@ Show me examples.</code></pre>
         </div>
       </div>
       <div class="callout tip">
-        <strong>Why this order?</strong>
+        <strong>The takeaway</strong>
         <p>
-          Observability comes first on purpose: once every agent turn is logged and
-          measurable, every feature after it can be evaluated instead of guessed at.
-          Each item then becomes its own mini-walkthrough. Track them from the
-          <a href="ideas.html">idea board</a>.
+          Observability shipped first on purpose: now that every agent turn is
+          logged and measurable, every feature after it can be evaluated instead
+          of guessed at. More importantly, this increment is the template &mdash;
+          RPI agent drives the loop, a specialist reviewer settles the forks, and
+          an ADR records the why. Each item above becomes its own mini-walkthrough.
+          Track them from the <a href="ideas.html">idea board</a>.
         </p>
       </div>
     </section>

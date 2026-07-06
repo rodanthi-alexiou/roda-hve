@@ -12,6 +12,12 @@ import type {
   ChatCompletionMessageParam,
 } from "openai/resources/index";
 import { runAgent } from "./agent/agent.js";
+import {
+  initTelemetry,
+  startTimer,
+  trackEvent,
+  trackException,
+} from "./telemetry/telemetry.js";
 
 const app = express();
 app.use(cors());
@@ -59,11 +65,25 @@ app.post("/api/chat", async (req, res) => {
     latest = { role: "user", content: body.message };
   }
 
+  const turnId = crypto.randomUUID();
+  const stop = startTimer();
   try {
-    const result = await runAgent([...history, latest]);
+    const result = await runAgent([...history, latest], { turnId });
+    trackEvent(
+      "ChatTurn",
+      {
+        turnId,
+        hasImage: Boolean(body.image),
+        historyLen: history.length,
+        cardCount: result.cards.length,
+      },
+      { durationMs: stop(), replyChars: result.content.length },
+    );
     res.json({ reply: result.content, cards: result.cards });
   } catch (err) {
     console.error("chat error:", err);
+    trackException(err, { turnId });
+    trackEvent("ChatTurnFailed", { turnId }, { durationMs: stop() });
     res.status(500).json({
       error: err instanceof Error ? err.message : "internal error",
     });
@@ -71,6 +91,7 @@ app.post("/api/chat", async (req, res) => {
 });
 
 const port = Number(process.env.PORT ?? 3000);
+void initTelemetry();
 app.listen(port, () => {
   console.log(`Museum Sidekick API listening on :${port}`);
 });

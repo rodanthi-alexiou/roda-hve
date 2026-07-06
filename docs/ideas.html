@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Ideas to Implement — HVE Practices Lab</title>
-  <meta name="description" content="A growing lab of brownfield scenarios you can build with High Velocity Engineering and GitHub Copilot. Museum Sidekick is the first; more are on the way." />
+  <meta name="description" content="A growing lab of greenfield and brownfield scenarios, built with GitHub Copilot and used to experiment with agentic SDLC methodologies like High Velocity Engineering. Museum Sidekick is the first; more are on the way." />
   <link rel="stylesheet" href="assets/styles.css" />
 </head>
 <body>
@@ -38,15 +38,16 @@
       <h1>A lab of things worth building</h1>
       <p class="lead">
         This is the playground. Every card below is a real, shippable scenario
-        you can build with High Velocity Engineering and GitHub Copilot. Some are
-        live already, most are placeholders waiting for their turn. Pick one,
-        open its walkthrough, and follow the same loop end to end.
+        &mdash; greenfield or brownfield &mdash; that I build with GitHub Copilot
+        and then use to experiment with agentic SDLC methodologies. Some are live
+        already, most are placeholders waiting for their turn. Pick one, open its
+        walkthrough, and see which method delivers it best.
       </p>
       <div class="tags">
-        <span class="pill">Brownfield-first</span>
+        <span class="pill">Greenfield &amp; brownfield</span>
         <span class="pill">Copilot-driven</span>
+        <span class="pill">Method over domain</span>
         <span class="pill">Secure by default</span>
-        <span class="pill">Ship in days</span>
       </div>
     </div>
   </div>
@@ -54,24 +55,25 @@
   <main>
     <section id="why">
       <p class="eyebrow">Why this exists</p>
-      <h2>Start from what already exists, not a blank cloud</h2>
+      <h2>The domain is the excuse, the method is the point</h2>
       <p class="lead">
-        Most real work is <strong>brownfield</strong>. There is already a
-        subscription, already some resources, already a team with opinions. The
-        question is never "what can I build from zero," it is "how do I use the
-        material I already have to build something secure and fast, without
-        breaking what is running."
+        Some scenarios start from a blank page (greenfield), others plug into an
+        estate that already exists (brownfield). Either way, the interesting
+        question is not "can Copilot build it" &mdash; it clearly can &mdash; it is
+        <strong>which agentic SDLC methodology delivers it best</strong>: fewer
+        iterations, safer output, less rework.
       </p>
       <p>
-        That is the whole thesis of this lab. Each idea takes existing Azure
-        resources and a pile of open material (HVE Core, CAIRA, the Learn MCP,
-        public APIs) and turns them into a working agentic app. The methodology
-        stays the same across every idea. Only the domain changes.
+        That is the whole thesis of this lab. Each idea is a working agentic app
+        built with Copilot and a pile of open material (HVE Core, CAIRA, the Learn
+        MCP, public APIs), then delivered with a chosen methodology so I can
+        compare approaches. The domain changes from card to card; what I am really
+        testing is the process.
       </p>
       <div class="grid grid-3">
         <div class="card">
           <h3>Reuse, don't reinvent</h3>
-          <p class="muted">Existing resources, CAIRA reference architectures, and validated IaC do the heavy lifting. You write domain logic, not boilerplate.</p>
+          <p class="muted">Existing resources, CAIRA reference architectures, and validated IaC do the heavy lifting. You write domain logic, not boilerplate &mdash; whether the estate is new or already running.</p>
         </div>
         <div class="card">
           <h3>Grounded, not guessed</h3>
@@ -102,7 +104,7 @@
             grounded chat with four Met tools, GPT-4o vision, a chat + gallery UI,
             and passwordless, scale-to-zero deployment on Azure Container Apps.
           </p>
-          <p class="muted"><strong>Next up:</strong> agent logs &amp; analytics with HVE &mdash; see the <a href="walkthrough.html#roadmap">roadmap</a>.</p>
+          <p class="muted"><strong>Latest:</strong> agent observability shipped with the HVE loop &mdash; an RPI agent drove the build and the System Architecture Reviewer produced an ADR. See the <a href="walkthrough.html#roadmap">case study</a>.</p>
           <p class="muted"><strong>Uses:</strong> HVE Core &middot; CAIRA &middot; Learn MCP &middot; Met API &middot; azd</p>
         </a>
 
@@ -115,7 +117,7 @@
             systems, and drafts a triaged response. Placeholder &mdash; scenario
             notes and walkthrough to follow.
           </p>
-          <p class="muted"><strong>Brownfield angle:</strong> plug into an existing ticketing store and knowledge base.</p>
+          <p class="muted"><strong>Scenario angle:</strong> plug into an existing ticketing store and knowledge base.</p>
         </div>
 
         <!-- PLACEHOLDER 3 -->
@@ -127,7 +129,7 @@
             citations. Placeholder &mdash; to be built on the same accelerator
             with a different retrieval layer.
           </p>
-          <p class="muted"><strong>Brownfield angle:</strong> index docs already sitting in existing storage.</p>
+          <p class="muted"><strong>Scenario angle:</strong> index docs already sitting in existing storage.</p>
         </div>
 
         <!-- PLACEHOLDER 4 -->
@@ -139,16 +141,17 @@
             and the whole skeleton retargets. If you have a scenario, this is
             where it lands.
           </p>
-          <p class="muted"><strong>Brownfield angle:</strong> whatever resources you already run.</p>
+          <p class="muted"><strong>Scenario angle:</strong> greenfield from a spec, or whatever resources you already run.</p>
         </div>
       </div>
 
       <div class="callout tip">
-        <strong>Same loop, different domain</strong>
+        <strong>Same discipline, different domain &mdash; and different method</strong>
         <p>
-          Every idea on this board follows the exact same seven-step build. The
-          only piece that really changes is the tool layer that talks to the
-          domain data. See the <a href="reference.html#accelerator">accelerator mapping</a>
+          Every idea on this board is built with Copilot and then delivered with a
+          chosen agentic SDLC methodology. The tool layer that talks to the domain
+          data is usually the only big thing that changes. See the
+          <a href="reference.html#accelerator">accelerator mapping</a>
           for how that swap works.
         </p>
       </div>

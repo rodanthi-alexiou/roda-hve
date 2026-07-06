@@ -14,12 +14,44 @@ import type {
   MetObject,
   SearchParams,
 } from "./types.js";
+import {
+  startTimer,
+  trackDependency,
+  trackException,
+} from "../telemetry/telemetry.js";
 
 const BASE =
   "https://collectionapi.metmuseum.org/public/collection/v1";
 
 /** Max `/objects/{id}` requests in flight at once (stays well under 80 req/s). */
 const CONCURRENCY = 8;
+
+/** fetch wrapper that records each Met HTTP call as a dependency. */
+async function tracedFetch(name: string, url: string): Promise<Response> {
+  const stop = startTimer();
+  try {
+    const res = await fetch(url);
+    trackDependency({
+      name,
+      data: url,
+      type: "HTTP",
+      duration: stop(),
+      success: res.ok,
+      resultCode: res.status,
+    });
+    return res;
+  } catch (err) {
+    trackDependency({
+      name,
+      data: url,
+      type: "HTTP",
+      duration: stop(),
+      success: false,
+    });
+    trackException(err, { url });
+    throw err;
+  }
+}
 
 /**
  * Process-local cache keyed by objectID. Stores the in-flight promise so that
@@ -35,7 +67,7 @@ export function getObject(id: number): Promise<MetObject | null> {
   if (cached) return cached;
 
   const promise = (async (): Promise<MetObject | null> => {
-    const res = await fetch(`${BASE}/objects/${id}`);
+    const res = await tracedFetch("Met /objects", `${BASE}/objects/${id}`);
     // fetch does not throw on 4xx/5xx — check explicitly.
     if (!res.ok) return null;
     return (await res.json()) as MetObject;
@@ -119,7 +151,10 @@ export async function searchCollection(
   params: SearchParams,
   limit = 12,
 ): Promise<ArtworkCard[]> {
-  const res = await fetch(`${BASE}/search?${toQuery(params)}`);
+  const res = await tracedFetch(
+    "Met /search",
+    `${BASE}/search?${toQuery(params)}`,
+  );
   if (!res.ok) return [];
 
   const { objectIDs } = (await res.json()) as {
@@ -139,7 +174,7 @@ export async function searchCollection(
 
 /** List the Met's curatorial departments (fetched live, not hardcoded). */
 export async function listDepartments(): Promise<Department[]> {
-  const res = await fetch(`${BASE}/departments`);
+  const res = await tracedFetch("Met /departments", `${BASE}/departments`);
   if (!res.ok) return [];
   const { departments } = (await res.json()) as {
     departments: Department[];

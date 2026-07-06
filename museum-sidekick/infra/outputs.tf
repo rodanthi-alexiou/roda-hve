@@ -20,6 +20,11 @@ output "AZURE_OPENAI_DEPLOYMENT" {
   value = azurerm_cognitive_deployment.gpt4o.name
 }
 
+output "APPLICATIONINSIGHTS_CONNECTION_STRING" {
+  value     = azurerm_application_insights.main.connection_string
+  sensitive = true
+}
+
 # The API's public URL — used as the frontend's build-time API base URL.
 output "SERVICE_API_URI" {
   value = "https://${azurerm_container_app.api.ingress[0].fqdn}"
