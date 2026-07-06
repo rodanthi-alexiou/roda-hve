@@ -426,6 +426,28 @@ pre code {
   margin: 8px 0 20px;
 }
 
+/* ---------- Flow diagram ---------- */
+
+.flow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 20px 0 24px;
+}
+
+.flow .pill {
+  font-size: 0.9rem;
+  padding: 6px 14px;
+  color: var(--text);
+  background: var(--bg);
+}
+
+.flow-arrow {
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
 /* ---------- Step blocks ---------- */
 
 .step {
