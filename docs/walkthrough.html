@@ -49,6 +49,7 @@
         <a href="#step-5">5 &middot; Infra &amp; CI/CD</a>
         <a href="#step-6">6 &middot; Coding Agent</a>
         <a href="#step-7">7 &middot; Deploy &amp; Demo</a>
+        <a href="#features">&check; Live today</a>
       </div>
     </div>
   </div>
@@ -506,25 +507,83 @@ Show me examples.</code></pre>
       </div>
     </div>
 
+    <section id="features">
+      <p class="eyebrow">&check; Live today</p>
+      <h2>What the deployed agent does right now</h2>
+      <p class="lead">
+        This is not a mockup. Everything below is running in the deployed POC,
+        straight from the codebase. It is the concrete result of the seven steps
+        above.
+      </p>
+      <div class="grid grid-3">
+        <div class="card">
+          <h3>Grounded chat</h3>
+          <p class="muted">A warm museum-guide persona on <code>POST /api/chat</code>, powered by GPT-4o tool calling with a 5-step cost cap. Every answer is grounded in real Met works.</p>
+        </div>
+        <div class="card">
+          <h3>Conversation memory</h3>
+          <p class="muted">Prior turns travel with each request, so the agent keeps context across a back-and-forth exchange.</p>
+        </div>
+        <div class="card">
+          <h3>Multimodal vision</h3>
+          <p class="muted">Attach an image (upload or URL) and GPT-4o describes what it sees, then searches for related works in the collection.</p>
+        </div>
+        <div class="card">
+          <h3>Four Met tools</h3>
+          <p class="muted"><code>search_collection</code> (filter by department, medium, geography, date, highlights, on-view), <code>get_object</code>, <code>list_departments</code>, and <code>find_related</code> &mdash; the "more like this" tool the Coding Agent shipped.</p>
+        </div>
+        <div class="card">
+          <h3>Grounding guardrails</h3>
+          <p class="muted">Every displayed work is guaranteed public-domain and image-bearing, with soft-fail on bad IDs so one gap never sinks the gallery.</p>
+        </div>
+        <div class="card">
+          <h3>Tuned Met client</h3>
+          <p class="muted">Process-local caching, bounded concurrency (8 in flight), and null-cached 404s tame the Met API's N+1 fan-out.</p>
+        </div>
+        <div class="card">
+          <h3>Chat + gallery UI</h3>
+          <p class="muted">A React front end with image attach and preview, starter prompts, and a responsive, de-duped gallery of artwork cards linking back to metmuseum.org.</p>
+        </div>
+        <div class="card">
+          <h3>Passwordless on Azure</h3>
+          <p class="muted">Managed identity via <code>DefaultAzureCredential</code> in Azure, with an API-key fallback for local dev. No secrets in the app.</p>
+        </div>
+        <div class="card">
+          <h3>One-command deploy</h3>
+          <p class="muted">Terraform + <code>azd up</code> ship both Container Apps with scale-to-zero, plus a <code>/health</code> probe and Vitest unit tests on the Met client.</p>
+        </div>
+      </div>
+    </section>
+
     <section id="roadmap">
       <p class="eyebrow">What we build next</p>
       <h2>The baseline is live &mdash; now the fun part</h2>
       <p class="lead">
-        The screenshot above is the floor, not the ceiling. From here we start
-        layering features on top of the POC, each one chosen to show a different
-        piece of HVE value in action. These are placeholders for now &mdash; they
-        get real walkthroughs as they ship.
+        The features above are the floor, not the ceiling. From here we start
+        layering on top of the POC, each increment chosen to show a different
+        piece of HVE value in action. First up is making the agent observable.
       </p>
-      <div class="grid grid-2">
-        <div class="card" style="border-style: dashed;">
-          <span class="pill">Planned</span>
-          <h3 style="margin-top: 14px;">Related-works recommendations</h3>
-          <p class="muted">Extend the tool the Coding Agent wrote into a full "more like this" experience. Shows delegated development compounding over time.</p>
-        </div>
+      <div class="card" style="border-color: var(--green-soft); background: var(--green-soft);">
+        <span class="pill" style="color: var(--green); border-color: var(--green-soft); background: #fff;">Next SDLC phase &middot; with HVE</span>
+        <h3 style="margin-top: 14px;">Agent logs &amp; analytics</h3>
+        <p class="muted">
+          Work with HVE to instrument the agent: capture every turn, tool call,
+          latency, and token cost, then surface it all in a dashboard. This is the
+          "review" phase of the HVE loop made observable &mdash; the difference
+          between an agent you hope works and one you can prove is working. This is
+          the phase I am building next.
+        </p>
+      </div>
+      <div class="grid grid-2" style="margin-top: 18px;">
         <div class="card" style="border-style: dashed;">
           <span class="pill">Planned</span>
           <h3 style="margin-top: 14px;">Evaluation and tracing</h3>
-          <p class="muted">Wire in agent evals and traces so we can prove the thing actually got better, not just different. HVE's "review" phase, made measurable.</p>
+          <p class="muted">Build on the logs with agent evals and traces so we can prove the thing actually got better, not just different. Analytics turned into a quality gate.</p>
+        </div>
+        <div class="card" style="border-style: dashed;">
+          <span class="pill">Planned</span>
+          <h3 style="margin-top: 14px;">Themed tour builder</h3>
+          <p class="muted">A <code>build_tour</code> tool that assembles an ordered, narrated sequence of works from one sentence. The headline feature still on the backlog.</p>
         </div>
         <div class="card" style="border-style: dashed;">
           <span class="pill">Planned</span>
@@ -538,11 +597,11 @@ Show me examples.</code></pre>
         </div>
       </div>
       <div class="callout tip">
-        <strong>Why placeholders?</strong>
+        <strong>Why this order?</strong>
         <p>
-          The point of this lab is the <em>how</em>, not a finished product. Each
-          feature above becomes its own mini-walkthrough so you can watch the HVE
-          loop deliver value one increment at a time. Track them from the
+          Observability comes first on purpose: once every agent turn is logged and
+          measurable, every feature after it can be evaluated instead of guessed at.
+          Each item then becomes its own mini-walkthrough. Track them from the
           <a href="ideas.html">idea board</a>.
         </p>
       </div>
