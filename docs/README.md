@@ -87,5 +87,39 @@ this guide.
 
 ### Reference
 
+* [Build approaches: baseline vs true HVE-Core RPI](12-build-approaches.md): how
+  the POC was actually built, what a full `/rpi` run looks like, and when to use
+  each approach.
 * [Met Collection API and agent tools](11-met-api-reference.md): endpoints,
   parameters, and how each maps to an agent tool.
+
+### Implementation notes (the built POC)
+
+A working proof-of-concept of this walkthrough lives in the
+[`museum-sidekick/`](../museum-sidekick/) folder. It followed the HVE loop by
+hand (the Met tool layer went through research → plan → implement, with the
+tracking documents authored while following the methodology rather than emitted
+by the `/rpi` agents) and makes a few deliberate, cost-conscious choices that
+diverge from the tutorial text above. For a full comparison of that hybrid
+approach against a true HVE-Core RPI run, see
+[Build approaches](12-build-approaches.md). When following the steps, treat these
+notes as the source of truth:
+
+| Topic | Tutorial says | The POC does | Why |
+| ----- | ------------- | ------------ | --- |
+| Project folder | `agentic-sidekick` | `museum-sidekick` | Clearer product name |
+| Agent runtime | Foundry Agent Service SDK | Azure OpenAI GPT-4o via chat-completions (`openai` npm package, `AzureOpenAI` client) with function tool-calling and vision | Cheaper, no server-side agent/thread state to provision, fully unit-testable |
+| Auth | — | Passwordless-first: `getBearerTokenProvider(new DefaultAzureCredential(), "https://cognitiveservices.azure.com/.default")`, API-key fallback for local dev | No secrets in the app; Managed Identity in Azure |
+| GPT-4o capacity | `sku_capacity = 30` | `openai_capacity = 10` (10K TPM) | POC cost control |
+| Hosting | Azure Container Apps | Container Apps with `min_replicas = 0` (scale to zero), Basic-tier ACR | No compute cost when idle |
+| IaC | CAIRA `iac/` Terraform | Hand-written low-cost Terraform in [`museum-sidekick/infra/`](../museum-sidekick/infra/), grounded in CAIRA conventions | Kept minimal for a POC |
+
+The Met tool layer solves the signature N+1 fan-out (one search returns many
+object IDs, each needing its own hydrate call) with bounded concurrency plus an
+in-memory promise cache, and enforces three guardrails so only public-domain
+works with real images reach the gallery. See the research and plan under
+`museum-sidekick/.copilot-tracking/`.
+
+> **Cost reminder:** run `azd down --purge` when finished to stop charges and
+> purge the soft-deleted Azure OpenAI account.
+

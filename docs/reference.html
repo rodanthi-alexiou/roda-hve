@@ -210,6 +210,29 @@
         <a href="https://metmuseum.github.io/">Met Collection API documentation</a>.
       </p>
 
+      <h3>Implementation notes (the built POC)</h3>
+      <p>
+        A working proof-of-concept lives in the <code>museum-sidekick/</code>
+        folder. It makes a few deliberate, cost-conscious choices that diverge
+        from the walkthrough text; treat these as the source of truth.
+      </p>
+      <table>
+        <thead>
+          <tr><th>Topic</th><th>Walkthrough</th><th>The POC</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Project folder</td><td><code>agentic-sidekick</code></td><td><code>museum-sidekick</code></td></tr>
+          <tr><td>Agent runtime</td><td>Foundry Agent Service SDK</td><td>Azure OpenAI GPT-4o chat-completions with function tool-calling and vision</td></tr>
+          <tr><td>Auth</td><td>&mdash;</td><td>Passwordless (Managed Identity) with API-key fallback for local dev</td></tr>
+          <tr><td>GPT-4o capacity</td><td>30</td><td>10 (10K TPM)</td></tr>
+          <tr><td>Hosting</td><td>Container Apps</td><td>Container Apps scaled to zero, Basic-tier ACR</td></tr>
+        </tbody>
+      </table>
+      <p>
+        <strong>Cost reminder:</strong> run <code>azd down --purge</code> when
+        finished to stop charges and purge the soft-deleted Azure OpenAI account.
+      </p>
+
       <div class="btn-row">
         <a class="btn btn-primary" href="walkthrough.html">Back to the walkthrough &rarr;</a>
         <a class="btn btn-secondary" href="index.html">Home</a>

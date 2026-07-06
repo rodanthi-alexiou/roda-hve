@@ -1,0 +1,27 @@
+# azure.yaml - Azure Developer CLI (azd) service map
+# https://aka.ms/azure-dev/azure-yaml
+name: museum-sidekick
+metadata:
+  template: museum-sidekick@0.1.0
+
+infra:
+  provider: terraform
+  path: infra
+
+services:
+  api:
+    project: ./src/api
+    language: ts
+    host: containerapp
+    docker:
+      path: Dockerfile
+      context: .
+  frontend:
+    project: ./src/frontend
+    language: ts
+    host: containerapp
+    docker:
+      path: Dockerfile
+      context: .
+      buildArgs:
+        - VITE_API_BASE_URL=${SERVICE_API_URI}

@@ -1,7 +1,6 @@
 ---
 title: "roda-hve"
 description: "High Velocity Engineering practices, featuring the Museum Sidekick walkthrough for building an agentic app with HVE Core and CAIRA"
-author: Microsoft
 ms.date: 2026-07-03
 ms.topic: overview
 keywords:
