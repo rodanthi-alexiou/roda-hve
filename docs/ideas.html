@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ideas to Implement — HVE Practices Lab</title>
+  <meta name="description" content="A growing lab of brownfield scenarios you can build with High Velocity Engineering and GitHub Copilot. Museum Sidekick is the first; more are on the way." />
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav">
+      <a class="brand" href="index.html">
+        <span class="logo">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2 20.5 7v10L12 22 3.5 17V7L12 2Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+            <path d="M12 7v10M7.5 9.5l9 5M16.5 9.5l-9 5" stroke="currentColor" stroke-width="1.2"/>
+          </svg>
+        </span>
+        museum sidekick
+      </a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="getting-started.html">Getting Started</a>
+        <a href="ideas.html" class="active">Ideas</a>
+        <a href="walkthrough.html">Walkthrough</a>
+        <a href="build-approaches.html">Approaches</a>
+        <a href="reference.html">Reference</a>
+        <a href="resources.html">Resources</a>
+        <a href="https://github.com/rodanthi-alexiou/roda-hve">GitHub</a>
+      </div>
+    </nav>
+  </header>
+
+  <div class="hero">
+    <div class="wrap">
+      <p class="eyebrow">Ideas to implement</p>
+      <h1>A lab of things worth building</h1>
+      <p class="lead">
+        This is the playground. Every card below is a real, shippable scenario
+        you can build with High Velocity Engineering and GitHub Copilot. Some are
+        live already, most are placeholders waiting for their turn. Pick one,
+        open its walkthrough, and follow the same loop end to end.
+      </p>
+      <div class="tags">
+        <span class="pill">Brownfield-first</span>
+        <span class="pill">Copilot-driven</span>
+        <span class="pill">Secure by default</span>
+        <span class="pill">Ship in days</span>
+      </div>
+    </div>
+  </div>
+
+  <main>
+    <section id="why">
+      <p class="eyebrow">Why this exists</p>
+      <h2>Start from what already exists, not a blank cloud</h2>
+      <p class="lead">
+        Most real work is <strong>brownfield</strong>. There is already a
+        subscription, already some resources, already a team with opinions. The
+        question is never "what can I build from zero," it is "how do I use the
+        material I already have to build something secure and fast, without
+        breaking what is running."
+      </p>
+      <p>
+        That is the whole thesis of this lab. Each idea takes existing Azure
+        resources and a pile of open material (HVE Core, CAIRA, the Learn MCP,
+        public APIs) and turns them into a working agentic app. The methodology
+        stays the same across every idea. Only the domain changes.
+      </p>
+      <div class="grid grid-3">
+        <div class="card">
+          <h3>Reuse, don't reinvent</h3>
+          <p class="muted">Existing resources, CAIRA reference architectures, and validated IaC do the heavy lifting. You write domain logic, not boilerplate.</p>
+        </div>
+        <div class="card">
+          <h3>Grounded, not guessed</h3>
+          <p class="muted">The RPI loop and the Learn MCP keep every step verified against real docs and real code, so the agent stops hallucinating and starts citing.</p>
+        </div>
+        <div class="card">
+          <h3>Secure and fast</h3>
+          <p class="muted">Least-privilege roles, managed identity, and no baked-in keys come from the accelerator, so speed never costs you safety.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="ideas">
+      <p class="eyebrow">The idea board</p>
+      <h2>Pick a scenario</h2>
+      <p class="lead">
+        The first one is built and deployed. The rest are open slots. As each
+        one gets built, its card turns live and links to a full walkthrough.
+      </p>
+
+      <div class="grid grid-2">
+        <!-- FLAGSHIP -->
+        <a class="card" href="walkthrough.html">
+          <span class="pill" style="color: var(--green); border-color: var(--green-soft); background: var(--green-soft);">Live POC</span>
+          <h3 style="margin-top: 14px;">Museum Sidekick</h3>
+          <p class="muted">
+            A multimodal agent that plans self-guided museum tours from the Met's
+            open-access collection. Real tool-calling, GPT-4o vision, deployed on
+            Azure Container Apps. This is the flagship &mdash; the walkthrough is
+            complete and the app is live.
+          </p>
+          <p class="muted"><strong>Uses:</strong> HVE Core &middot; CAIRA &middot; Learn MCP &middot; Met API &middot; azd</p>
+        </a>
+
+        <!-- PLACEHOLDER 2 -->
+        <div class="card" style="border-style: dashed;">
+          <span class="pill">Coming soon</span>
+          <h3 style="margin-top: 14px;">Support triage copilot</h3>
+          <p class="muted">
+            An agent that reads incoming tickets, pulls context from existing
+            systems, and drafts a triaged response. Placeholder &mdash; scenario
+            notes and walkthrough to follow.
+          </p>
+          <p class="muted"><strong>Brownfield angle:</strong> plug into an existing ticketing store and knowledge base.</p>
+        </div>
+
+        <!-- PLACEHOLDER 3 -->
+        <div class="card" style="border-style: dashed;">
+          <span class="pill">Coming soon</span>
+          <h3 style="margin-top: 14px;">Docs Q&amp;A agent</h3>
+          <p class="muted">
+            Grounded question answering over a team's own documentation, with
+            citations. Placeholder &mdash; to be built on the same accelerator
+            with a different retrieval layer.
+          </p>
+          <p class="muted"><strong>Brownfield angle:</strong> index docs already sitting in existing storage.</p>
+        </div>
+
+        <!-- PLACEHOLDER 4 -->
+        <div class="card" style="border-style: dashed;">
+          <span class="pill">Coming soon</span>
+          <h3 style="margin-top: 14px;">Your idea here</h3>
+          <p class="muted">
+            An empty slot on purpose. Swap the Met tool layer for any data source
+            and the whole skeleton retargets. If you have a scenario, this is
+            where it lands.
+          </p>
+          <p class="muted"><strong>Brownfield angle:</strong> whatever resources you already run.</p>
+        </div>
+      </div>
+
+      <div class="callout tip">
+        <strong>Same loop, different domain</strong>
+        <p>
+          Every idea on this board follows the exact same seven-step build. The
+          only piece that really changes is the tool layer that talks to the
+          domain data. See the <a href="reference.html#accelerator">accelerator mapping</a>
+          for how that swap works.
+        </p>
+      </div>
+    </section>
+
+    <section id="next" class="center">
+      <p class="eyebrow">Start with the flagship</p>
+      <h2>Build Museum Sidekick first</h2>
+      <p class="lead" style="margin: 0 auto 24px;">
+        It is the one with a finished walkthrough. Do this one end to end, then
+        reuse everything you learned on the next idea.
+      </p>
+      <div class="btn-row" style="justify-content: center;">
+        <a class="btn btn-primary" href="getting-started.html">Set up your tools &rarr;</a>
+        <a class="btn btn-secondary" href="walkthrough.html">See the 7 steps</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <span>HVE Practices Lab &middot; Museum Sidekick and friends</span>
+      <span>
+        <a href="https://github.com/microsoft/hve-core">HVE Core</a> &middot;
+        <a href="https://github.com/microsoft/CAIRA">CAIRA</a> &middot;
+        <a href="https://metmuseum.github.io/">Met API</a>
+      </span>
+    </div>
+  </footer>
+</body>
+</html>

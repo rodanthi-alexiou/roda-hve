@@ -22,9 +22,11 @@
       <div class="nav-links">
         <a href="index.html">Home</a>
         <a href="getting-started.html">Getting Started</a>
+        <a href="ideas.html">Ideas</a>
         <a href="walkthrough.html" class="active">Walkthrough</a>
         <a href="build-approaches.html">Approaches</a>
         <a href="reference.html">Reference</a>
+        <a href="resources.html">Resources</a>
         <a href="https://github.com/rodanthi-alexiou/roda-hve">GitHub</a>
       </div>
     </nav>
@@ -455,6 +457,12 @@ gh pr review &lt;number&gt; --approve</code></pre>
         <p>The first <code>azd up</code> provisions Foundry and Container Apps from scratch. Subsequent <code>azd deploy</code> runs, for code-only changes, are much faster.</p>
       </div>
 
+      <figure class="shot">
+        <img src="assets/first-draft-ui.png" alt="The Museum Sidekick UI after the first azd up: a chat panel on the left and a gallery grid of artworks on the right." />
+        <figcaption>The very first <code>azd up</code> &mdash; the baseline we build on top of.</figcaption>
+      </figure>
+      <p>This is the actual app the first deploy produced: a chat panel wired to the agent, and a live gallery pulled straight from the Met. It is rough, it is real, and it is the starting line. Everything on the roadmap below builds on top of exactly this.</p>
+
       <h3>Run the four aha moments</h3>
       <div class="grid grid-2">
         <div class="card">
@@ -497,6 +505,48 @@ Show me examples.</code></pre>
         <a class="btn btn-secondary" href="index.html">Back to Home</a>
       </div>
     </div>
+
+    <section id="roadmap">
+      <p class="eyebrow">What we build next</p>
+      <h2>The baseline is live &mdash; now the fun part</h2>
+      <p class="lead">
+        The screenshot above is the floor, not the ceiling. From here we start
+        layering features on top of the POC, each one chosen to show a different
+        piece of HVE value in action. These are placeholders for now &mdash; they
+        get real walkthroughs as they ship.
+      </p>
+      <div class="grid grid-2">
+        <div class="card" style="border-style: dashed;">
+          <span class="pill">Planned</span>
+          <h3 style="margin-top: 14px;">Related-works recommendations</h3>
+          <p class="muted">Extend the tool the Coding Agent wrote into a full "more like this" experience. Shows delegated development compounding over time.</p>
+        </div>
+        <div class="card" style="border-style: dashed;">
+          <span class="pill">Planned</span>
+          <h3 style="margin-top: 14px;">Evaluation and tracing</h3>
+          <p class="muted">Wire in agent evals and traces so we can prove the thing actually got better, not just different. HVE's "review" phase, made measurable.</p>
+        </div>
+        <div class="card" style="border-style: dashed;">
+          <span class="pill">Planned</span>
+          <h3 style="margin-top: 14px;">Save and share a tour</h3>
+          <p class="muted">Persist a generated tour and hand out a link. A small feature that exercises the full research &rarr; plan &rarr; build &rarr; review loop end to end.</p>
+        </div>
+        <div class="card" style="border-style: dashed;">
+          <span class="pill">Planned</span>
+          <h3 style="margin-top: 14px;">Your feature here</h3>
+          <p class="muted">An open slot. Bring a feature idea and we build it on this exact baseline to demonstrate the methodology on something new.</p>
+        </div>
+      </div>
+      <div class="callout tip">
+        <strong>Why placeholders?</strong>
+        <p>
+          The point of this lab is the <em>how</em>, not a finished product. Each
+          feature above becomes its own mini-walkthrough so you can watch the HVE
+          loop deliver value one increment at a time. Track them from the
+          <a href="ideas.html">idea board</a>.
+        </p>
+      </div>
+    </section>
   </main>
 
   <footer class="site-footer">

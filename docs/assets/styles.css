@@ -512,3 +512,25 @@ pre code {
 .mt-0 { margin-top: 0; }
 .muted { color: var(--text-muted); }
 .divider { height: 1px; background: var(--border-soft); margin: 40px 0; border: none; }
+
+/* ---------- Screenshots / figures ---------- */
+
+.shot {
+  margin: 22px 0;
+}
+
+.shot img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+}
+
+.shot figcaption {
+  margin-top: 10px;
+  font-size: 0.9rem;
+  color: var(--text-faint);
+  text-align: center;
+}
