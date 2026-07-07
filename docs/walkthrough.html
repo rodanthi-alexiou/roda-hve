@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Walkthrough — HVE Practices Lab</title>
   <meta name="description" content="Seven steps from a one-paragraph spec to a live, multimodal agentic museum guide deployed on Azure." />
+  <link rel="icon" type="image/jpeg" href="assets/icon.jpg" />
   <link rel="stylesheet" href="assets/styles.css" />
 </head>
 <body>
@@ -66,6 +67,43 @@
       a one-paragraph spec. It is rough but real &mdash; the starting line the
       walkthrough builds on.
     </p>
+
+    <section id="phases">
+      <p class="eyebrow">How it is being built</p>
+      <h2>Implementation, block by block</h2>
+      <p class="lead">
+        The app grows one increment at a time. Each block below is a self-contained
+        piece of work, delivered with a chosen agentic method. Two are shipped; the
+        rest are in flight or queued.
+      </p>
+      <div class="grid grid-2">
+        <div class="card">
+          <span class="pill" style="color: var(--green); border-color: var(--green-soft); background: var(--green-soft);">&check; Completed</span>
+          <h3 style="margin-top: 14px;">1 &middot; Baseline</h3>
+          <p class="muted">GitHub Copilot scaffolded the whole POC from a one-paragraph spec &mdash; agent, four Met tools, chat + gallery UI, and a passwordless <code>azd up</code> deploy. The starting line pictured above.</p>
+        </div>
+        <div class="card">
+          <span class="pill" style="color: var(--green); border-color: var(--green-soft); background: var(--green-soft);">&check; Completed</span>
+          <h3 style="margin-top: 14px;">2 &middot; Observability</h3>
+          <p class="muted">Passwordless telemetry added the HVE way, driven by the autonomous <strong>RPI agent</strong>, with an ADR from the System Architecture Reviewer. See the <a href="#roadmap">case study</a> below.</p>
+        </div>
+        <div class="card" style="border-style: dashed;">
+          <span class="pill">In progress</span>
+          <h3 style="margin-top: 14px;">3 &middot; Agent architecture</h3>
+          <p class="muted">Assigning the agent architecture work to GitHub Copilot coding agents &mdash; delegated, reviewed through pull requests. Work in progress.</p>
+        </div>
+        <div class="card" style="border-style: dashed;">
+          <span class="pill">In progress</span>
+          <h3 style="margin-top: 14px;">4 &middot; Tracing in GitHub Copilot</h3>
+          <p class="muted">Wiring end-to-end tracing so agent turns are inspectable from GitHub Copilot. Work in progress.</p>
+        </div>
+        <div class="card" style="border-style: dashed;">
+          <span class="pill">Planned</span>
+          <h3 style="margin-top: 14px;">5 &middot; More features</h3>
+          <p class="muted">An open slot for the next increments &mdash; themed tour builder, save-and-share, evals, and whatever the discover phase ranks next.</p>
+        </div>
+      </div>
+    </section>
 
     <!-- STEP 1 -->
     <div class="step" id="step-1">
