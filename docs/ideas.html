@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ideas to Implement — HVE Practices Lab</title>
+  <title>Ideas — HVE Practices Lab</title>
   <meta name="description" content="A growing lab of greenfield and brownfield scenarios, built with GitHub Copilot and used to experiment with agentic SDLC methodologies like High Velocity Engineering. Museum Sidekick is the first; more are on the way." />
   <link rel="stylesheet" href="assets/styles.css" />
 </head>
@@ -11,13 +11,13 @@
   <header class="site-header">
     <nav class="nav">
       <a class="brand" href="index.html">
-        <span class="logo">
+        <span class="logo" aria-hidden="true">
           <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M12 2 20.5 7v10L12 22 3.5 17V7L12 2Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
             <path d="M12 7v10M7.5 9.5l9 5M16.5 9.5l-9 5" stroke="currentColor" stroke-width="1.2"/>
           </svg>
         </span>
-        museum sidekick
+        HVE Practices Lab
       </a>
       <div class="nav-links">
         <a href="index.html">Home</a>
@@ -96,7 +96,7 @@
 
       <div class="grid grid-2">
         <!-- FLAGSHIP -->
-        <a class="card" href="walkthrough.html">
+        <div class="card">
           <span class="pill" style="color: var(--green); border-color: var(--green-soft); background: var(--green-soft);">Live POC</span>
           <h3 style="margin-top: 14px;">Museum Sidekick</h3>
           <p class="muted">
@@ -104,9 +104,10 @@
             grounded chat with four Met tools, GPT-4o vision, a chat + gallery UI,
             and passwordless, scale-to-zero deployment on Azure Container Apps.
           </p>
-          <p class="muted"><strong>Latest:</strong> agent observability shipped with the HVE loop &mdash; an RPI agent drove the build and the System Architecture Reviewer produced an ADR. See the <a href="walkthrough.html#roadmap">case study</a>.</p>
+          <p class="muted"><strong>Latest:</strong> agent observability shipped with the HVE loop &mdash; an RPI agent drove the build and the System Architecture Reviewer produced an ADR (architecture decision record). See the <a href="walkthrough.html#roadmap">case study</a>.</p>
           <p class="muted"><strong>Uses:</strong> HVE Core &middot; CAIRA &middot; Learn MCP &middot; Met API &middot; azd</p>
-        </a>
+          <p class="muted"><a href="walkthrough.html">Open the full walkthrough &rarr;</a></p>
+        </div>
 
         <!-- PLACEHOLDER 2 -->
         <div class="card" style="border-style: dashed;">
@@ -173,7 +174,7 @@
 
   <footer class="site-footer">
     <div class="wrap">
-      <span>HVE Practices Lab &middot; Museum Sidekick and friends</span>
+      <span>HVE Practices Lab &middot; Museum Sidekick is the live flagship scenario</span>
       <span>
         <a href="https://github.com/microsoft/hve-core">HVE Core</a> &middot;
         <a href="https://github.com/microsoft/CAIRA">CAIRA</a> &middot;

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Museum Sidekick — An HVE + CAIRA Walkthrough</title>
+  <title>Home — HVE Practices Lab</title>
   <meta name="description" content="Build a multimodal agentic museum guide with High Velocity Engineering, CAIRA, and the Microsoft Learn MCP, grounded live in the open Met Collection API." />
   <link rel="stylesheet" href="assets/styles.css" />
 </head>
@@ -11,13 +11,13 @@
   <header class="site-header">
     <nav class="nav">
       <a class="brand" href="index.html">
-        <span class="logo">
+        <span class="logo" aria-hidden="true">
           <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M12 2 20.5 7v10L12 22 3.5 17V7L12 2Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
             <path d="M12 7v10M7.5 9.5l9 5M16.5 9.5l-9 5" stroke="currentColor" stroke-width="1.2"/>
           </svg>
         </span>
-        museum sidekick
+        HVE Practices Lab
       </a>
       <div class="nav-links">
         <a href="index.html" class="active">Home</a>
@@ -37,12 +37,13 @@
       <p class="eyebrow">A living agentic-SDLC lab</p>
       <h1>Build something real, fast &mdash; and make the SDLC itself more efficient</h1>
       <p class="lead">
-        This is a growing lab of scenarios &mdash; greenfield and brownfield &mdash;
-        that I build with GitHub Copilot, then use to experiment with different
-        agentic SDLC methodologies (like High Velocity Engineering) to see which
-        ones actually make software delivery faster and more reliable. The first
-        scenario is live: Museum Sidekick, a multimodal agent grounded in the open
-        Met Collection API.
+        <strong>For engineers evaluating agentic ways of working:</strong> this
+        lab gives you a runnable app and a repeatable method you can measure. It
+        is a growing set of scenarios &mdash; greenfield and brownfield &mdash;
+        that I build with GitHub Copilot, then use to compare agentic SDLC
+        methodologies (like High Velocity Engineering, or HVE) on iterations,
+        rework, and safety. The first scenario is live: Museum Sidekick, a
+        multimodal agent grounded in the open Met Collection API.
       </p>
       <div class="tags">
         <span class="pill">Greenfield &amp; brownfield</span>
@@ -123,8 +124,9 @@
         <div class="card">
           <h3>Microsoft Learn MCP</h3>
           <p class="muted">
-            Live, grounded access to official docs so SDK usage is verified, not
-            guessed, during the Research phase.
+            The Learn MCP (Model Context Protocol) server gives live, grounded
+            access to official docs so SDK usage is verified, not guessed, during
+            the Research phase.
           </p>
         </div>
       </div>
@@ -167,7 +169,7 @@
         <a class="card" href="walkthrough.html#step-7">
           <span class="num">7</span>
           <h3>Deploy and demo</h3>
-          <p class="muted">One <code>azd up</code>, then the four signature aha moments.</p>
+          <p class="muted">One <code>azd up</code>, then the four demo moments.</p>
         </a>
         <a class="card" href="reference.html#accelerator">
           <span class="num">&#9733;</span>
@@ -185,15 +187,15 @@
         your own pace.
       </p>
       <div class="btn-row" style="justify-content: center;">
-        <a class="btn btn-primary" href="getting-started.html">Prerequisites and setup &rarr;</a>
-        <a class="btn btn-secondary" href="reference.html">Met API reference</a>
+        <a class="btn btn-primary" href="getting-started.html">Want to build it? Prerequisites and setup &rarr;</a>
+        <a class="btn btn-secondary" href="build-approaches.html">Just want the approach? Compare execution modes</a>
       </div>
     </section>
   </main>
 
   <footer class="site-footer">
     <div class="wrap">
-      <span>HVE Practices Lab &middot; Museum Sidekick and friends</span>
+      <span>HVE Practices Lab &middot; Museum Sidekick is the live flagship scenario</span>
       <span>
         <a href="https://github.com/microsoft/hve-core">HVE Core</a> &middot;
         <a href="https://github.com/microsoft/CAIRA">CAIRA</a> &middot;
