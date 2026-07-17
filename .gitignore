@@ -1,0 +1,5 @@
+# HVE local telemetry — keep out of the public repo
+# Enablement marker turns capture ON for anyone who clones; keep it local-only.
+.hve-telemetry
+# Captured session data (JSONL) and generated reports.
+.copilot-tracking/
