@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Home — HVE Practices Lab</title>
-  <meta name="description" content="Build a multimodal agentic museum guide with High Velocity Engineering, CAIRA, and the Microsoft Learn MCP, grounded live in the open Met Collection API." />
+  <meta name="description" content="High Velocity Engineering (HVE) practices applied to real projects with GitHub Copilot. Walkthrough, references, and adoption patterns for technical partners." />
   <link rel="icon" type="image/jpeg" href="assets/icon.jpg" />
   <link rel="stylesheet" href="assets/styles.css" />
 </head>
@@ -22,12 +22,10 @@
       </a>
       <div class="nav-links">
         <a href="index.html" class="active">Home</a>
-        <a href="getting-started.html">Getting Started</a>
-        <a href="ideas.html">Ideas</a>
         <a href="walkthrough.html">Walkthrough</a>
-        <a href="build-approaches.html">Approaches</a>
-        <a href="reference.html">Reference</a>
-        <a href="resources.html">Resources</a>
+        <a href="ideas.html">Projects</a>
+        <a href="reference.html">References</a>
+        <a href="adopt-scale.html">Adopt &amp; Scale</a>
         <a href="https://github.com/rodanthi-alexiou/roda-hve">GitHub</a>
       </div>
     </nav>
@@ -35,161 +33,151 @@
 
   <div class="hero">
     <div class="wrap">
-      <p class="eyebrow">A living agentic-SDLC lab</p>
-      <h1>Build something real, fast &mdash; and make the SDLC itself more efficient</h1>
+      <p class="eyebrow">HVE Practices Lab</p>
+      <h1>Ship production AI apps faster with proven engineering practices</h1>
       <p class="lead">
-        <strong>For engineers evaluating agentic ways of working:</strong> this
-        lab gives you a runnable app and a repeatable method you can measure. It
-        is a growing set of scenarios &mdash; greenfield and brownfield &mdash;
-        that I build with GitHub Copilot, then use to compare agentic SDLC
-        methodologies (like High Velocity Engineering, or HVE) on iterations,
-        rework, and safety. The first scenario is live: Museum Sidekick, a
-        multimodal agent grounded in the open Met Collection API.
+        High Velocity Engineering (HVE) brings structured methodology to GitHub Copilot workflows.
+        Instead of raw prompting, you follow Research &rarr; Plan &rarr; Implement &rarr; Review &mdash;
+        producing verified, traceable code that reaches production faster and with fewer defects.
       </p>
-      <div class="tags">
-        <span class="pill">Greenfield &amp; brownfield</span>
-        <span class="pill">Agentic SDLC</span>
-        <span class="pill">Copilot-driven</span>
-        <span class="pill">Secure by default</span>
-      </div>
+      <p class="lead">
+        This lab demonstrates HVE in action: a real agentic app built end-to-end with
+        HVE Core, CAIRA accelerators, and the Microsoft Learn MCP &mdash; all driven by GitHub Copilot.
+      </p>
       <div class="btn-row">
-        <a class="btn btn-primary" href="ideas.html">See the idea board &rarr;</a>
-        <a class="btn btn-secondary" href="walkthrough.html">Jump to the flagship build</a>
+        <a class="btn btn-primary" href="walkthrough.html">Start the walkthrough &rarr;</a>
+        <a class="btn btn-secondary" href="adopt-scale.html">Adoption playbook</a>
       </div>
     </div>
   </div>
 
   <main>
-    <section id="why">
-      <p class="eyebrow">Why I built this</p>
-      <h2>The scenario is the excuse &mdash; the method is the point</h2>
-      <p class="lead">
-        I wanted a real, running app to experiment on, not a toy. So I had the
-        GitHub Copilot chat agent build one end to end &mdash; a greenfield POC
-        &mdash; and now I use it as a testbed for <strong>agentic SDLC
-        methodologies</strong>. Each increment is delivered with a different
-        approach so I can compare, side by side, what actually makes the software
-        development lifecycle more efficient.
-      </p>
+    <!-- What HVE contributes to SDLC -->
+    <section id="value">
+      <p class="eyebrow">Why HVE matters</p>
+      <h2>Structured AI-assisted engineering across the SDLC</h2>
       <p>
-        Museum Sidekick is that first testbed: a working, deployed agent that
-        plans museum tours from real, open art data. But the museum was never the
-        point &mdash; the <strong>method</strong> is. High Velocity Engineering is
-        the first methodology I put through its paces here; more will follow, on
-        both greenfield builds and brownfield estates, so the lab stays a fair
-        comparison rather than a single opinion.
+        HVE is not just about writing code faster. It integrates AI pair programming into every phase
+        of the software development lifecycle &mdash; from requirements research to deployment review &mdash;
+        with guardrails that ensure quality, security, and traceability.
       </p>
+      <div class="grid grid-4">
+        <div class="card">
+          <h3>Research</h3>
+          <p class="muted">Ground decisions in real docs and APIs before writing a line of code. The Learn MCP verifies everything against current Microsoft documentation.</p>
+        </div>
+        <div class="card">
+          <h3>Plan</h3>
+          <p class="muted">Generate checkboxed implementation plans with clear task decomposition, dependencies, and acceptance criteria.</p>
+        </div>
+        <div class="card">
+          <h3>Implement</h3>
+          <p class="muted">Write production code using CAIRA reference architectures and HVE agents, not blank-slate prompting.</p>
+        </div>
+        <div class="card">
+          <h3>Review</h3>
+          <p class="muted">Automated validation reports confirm the implementation matches the plan. Every artefact is traceable.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- What's in this site -->
+    <section id="whats-here">
+      <p class="eyebrow">What you will find here</p>
+      <h2>From zero to production in a structured walkthrough</h2>
+      <div class="grid grid-3">
+        <a href="walkthrough.html" class="card" style="text-decoration:none; color:inherit;">
+          <span class="pill blue">Build</span>
+          <h3>Walkthrough</h3>
+          <p class="muted">A 7-step build of a multimodal agentic museum guide &mdash; from scaffold to deployed Container Apps &mdash; using HVE methodology throughout.</p>
+        </a>
+        <a href="ideas.html" class="card" style="text-decoration:none; color:inherit;">
+          <span class="pill green">Explore</span>
+          <h3>Projects</h3>
+          <p class="muted">The flagship Museum Sidekick and future project ideas that demonstrate CAIRA reuse across different domains.</p>
+        </a>
+        <a href="reference.html" class="card" style="text-decoration:none; color:inherit;">
+          <span class="pill">Reference</span>
+          <h3>References</h3>
+          <p class="muted">GitHub Copilot skills, HVE Core, CAIRA accelerators, the Learn MCP, Azure infrastructure, and domain API details.</p>
+        </a>
+      </div>
+    </section>
+
+    <!-- Quick Start -->
+    <section id="quickstart">
+      <p class="eyebrow">Get started</p>
+      <h2>Prerequisites at a glance</h2>
+      <p>Everything you need to follow along with the walkthrough or build your own scenario.</p>
+
+      <details>
+        <summary>Accounts and access</summary>
+        <div class="details-content">
+          <ul>
+            <li>A GitHub account with <strong>GitHub Copilot</strong> enabled</li>
+            <li>An Azure subscription where you can create Azure AI Foundry and Container Apps resources</li>
+            <li>Permission to create role assignments (CAIRA IaC assigns least-privilege roles)</li>
+          </ul>
+          <div class="callout tip">
+            <strong>No key for the Met</strong>
+            <p>The Met Collection API needs no account or key. All requests are anonymous and public.</p>
+          </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>Core tools to install</summary>
+        <div class="details-content">
+          <table>
+            <thead>
+              <tr><th>Tool</th><th>Purpose</th><th>Verify</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Visual Studio Code</td><td>Editor + Copilot host</td><td><code>code --version</code></td></tr>
+              <tr><td>GitHub Copilot extension</td><td>AI pair programming</td><td>Sign in from Accounts menu</td></tr>
+              <tr><td>Node.js 20+</td><td>Runs the TypeScript API/frontend</td><td><code>node --version</code></td></tr>
+              <tr><td>Azure Developer CLI (azd)</td><td>One-command deploy</td><td><code>azd version</code></td></tr>
+              <tr><td>Azure CLI</td><td>Auth and resource management</td><td><code>az version</code></td></tr>
+              <tr><td>Terraform</td><td>CAIRA infrastructure as code</td><td><code>terraform version</code></td></tr>
+              <tr><td>Docker</td><td>Container builds</td><td><code>docker --version</code></td></tr>
+              <tr><td>Git</td><td>Source control</td><td><code>git --version</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </details>
+
+      <details>
+        <summary>Install HVE Core</summary>
+        <div class="details-content">
+          <p>For VS Code, install the extension:</p>
+          <pre><code>ise-hve-essentials.hve-core-all</code></pre>
+          <p>For the CLI:</p>
+          <pre><code>copilot plugin marketplace add microsoft/hve-core
+copilot plugin install</code></pre>
+          <p>Reload VS Code, then confirm HVE agents (<code>rpi-agent</code>, <code>task-researcher</code>) appear in the Copilot Chat picker.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>Install CAIRA skill + Learn MCP</summary>
+        <div class="details-content">
+          <p><strong>CAIRA skill:</strong></p>
+          <pre><code>npx skills add github.com/microsoft/CAIRA/skills</code></pre>
+          <p><strong>Learn MCP</strong> &mdash; add to <code>.vscode/mcp.json</code>:</p>
+          <pre><code>{
+  "servers": {
+    "microsoft-learn": {
+      "type": "http",
+      "url": "https://learn.microsoft.com/api/mcp"
+    }
+  }
+}</code></pre>
+          <p>This gives Copilot live access to <code>microsoft_docs_search</code>, <code>microsoft_code_sample_search</code>, and <code>microsoft_docs_fetch</code>.</p>
+        </div>
+      </details>
+
       <div class="btn-row">
-        <a class="btn btn-secondary" href="ideas.html">Browse the idea board</a>
-        <a class="btn btn-secondary" href="resources.html">See the material I used</a>
-      </div>
-    </section>
-
-    <section id="build">
-      <p class="eyebrow">What you will build</p>
-      <h2>A multimodal guide, grounded in open data</h2>
-      <div class="grid grid-3">
-        <div class="card">
-          <h3>Themed tours</h3>
-          <p class="muted">One sentence in, a curated, sequenced, narrated tour out, across departments and cultures.</p>
-        </div>
-        <div class="card">
-          <h3>Vision explanations</h3>
-          <p class="muted">GPT-4o vision reads real artwork and explains it in plain, friendly language.</p>
-        </div>
-        <div class="card">
-          <h3>Live retrieval</h3>
-          <p class="muted">Agentic tool-calling against the Met API, no baked-in dataset, no API key.</p>
-        </div>
-      </div>
-    </section>
-
-    <section id="blocks">
-      <p class="eyebrow">The three building blocks</p>
-      <h2>What powers the walkthrough</h2>
-      <div class="grid grid-3">
-        <div class="card">
-          <h3>HVE Core</h3>
-          <p class="muted">
-            The RPI workflow (Research, Plan, Implement, Review) keeps every step
-            grounded and verifiable instead of plausible.
-          </p>
-        </div>
-        <div class="card">
-          <h3>CAIRA</h3>
-          <p class="muted">
-            Reference architecture components for Foundry, Container Apps, the
-            agent API, and the React frontend, ready to adapt.
-          </p>
-        </div>
-        <div class="card">
-          <h3>Microsoft Learn MCP</h3>
-          <p class="muted">
-            The Learn MCP (Model Context Protocol) server gives live, grounded
-            access to official docs so SDK usage is verified, not guessed, during
-            the Research phase.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <section id="arc">
-      <p class="eyebrow">The demo arc</p>
-      <h2>Seven steps from spec to live</h2>
-      <div class="grid grid-2">
-        <a class="card" href="walkthrough.html#step-1">
-          <span class="num">1</span>
-          <h3>Scaffold the project</h3>
-          <p class="muted">Turn a one-paragraph spec into a buildable skeleton from CAIRA components.</p>
-        </a>
-        <a class="card" href="walkthrough.html#step-2">
-          <span class="num">2</span>
-          <h3>Wire Foundry Agent Service</h3>
-          <p class="muted">Add a conversational, vision-capable agent backed by GPT-4o.</p>
-        </a>
-        <a class="card" href="walkthrough.html#step-3">
-          <span class="num">3</span>
-          <h3>Build the Met tool layer</h3>
-          <p class="muted">Real tool-calling retrieval, plus the batched, cached N+1 fix live.</p>
-        </a>
-        <a class="card" href="walkthrough.html#step-4">
-          <span class="num">4</span>
-          <h3>Tests and self-heal</h3>
-          <p class="muted">Mock the Met API and let Copilot diagnose and fix its own failures.</p>
-        </a>
-        <a class="card" href="walkthrough.html#step-5">
-          <span class="num">5</span>
-          <h3>Infrastructure and CI/CD</h3>
-          <p class="muted">Provision Foundry and Container Apps from CAIRA IaC with azd.</p>
-        </a>
-        <a class="card" href="walkthrough.html#step-6">
-          <span class="num">6</span>
-          <h3>Hand a feature to the Coding Agent</h3>
-          <p class="muted">Delegate a new tool and review the pull request it opens.</p>
-        </a>
-        <a class="card" href="walkthrough.html#step-7">
-          <span class="num">7</span>
-          <h3>Deploy and demo</h3>
-          <p class="muted">One <code>azd up</code>, then the four demo moments.</p>
-        </a>
-        <a class="card" href="reference.html#accelerator">
-          <span class="num">&#9733;</span>
-          <h3>Golden accelerator</h3>
-          <p class="muted">Swap the tool layer to retarget the whole skeleton to any partner domain.</p>
-        </a>
-      </div>
-    </section>
-
-    <section id="start" class="center">
-      <p class="eyebrow">Start here</p>
-      <h2>Ready to build?</h2>
-      <p class="lead" style="margin: 0 auto 24px;">
-        Install the three building blocks, then work through the seven steps at
-        your own pace.
-      </p>
-      <div class="btn-row" style="justify-content: center;">
-        <a class="btn btn-primary" href="getting-started.html">Want to build it? Prerequisites and setup &rarr;</a>
-        <a class="btn btn-secondary" href="build-approaches.html">Just want the approach? Compare execution modes</a>
+        <a class="btn btn-primary" href="walkthrough.html">Continue to walkthrough &rarr;</a>
       </div>
     </section>
   </main>

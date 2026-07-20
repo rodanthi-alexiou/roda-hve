@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ideas — HVE Practices Lab</title>
-  <meta name="description" content="A growing lab of greenfield and brownfield scenarios, built with GitHub Copilot and used to experiment with agentic SDLC methodologies like High Velocity Engineering. Museum Sidekick is the first; more are on the way." />
+  <title>Projects — HVE Practices Lab</title>
+  <meta name="description" content="Production-grade AI apps built with GitHub Copilot and HVE methodology. Museum Sidekick is live; more scenarios are on the way." />
   <link rel="icon" type="image/jpeg" href="assets/icon.jpg" />
   <link rel="stylesheet" href="assets/styles.css" />
 </head>
@@ -22,12 +22,10 @@
       </a>
       <div class="nav-links">
         <a href="index.html">Home</a>
-        <a href="getting-started.html">Getting Started</a>
-        <a href="ideas.html" class="active">Ideas</a>
         <a href="walkthrough.html">Walkthrough</a>
-        <a href="build-approaches.html">Approaches</a>
-        <a href="reference.html">Reference</a>
-        <a href="resources.html">Resources</a>
+        <a href="ideas.html" class="active">Projects</a>
+        <a href="reference.html">References</a>
+        <a href="adopt-scale.html">Adopt &amp; Scale</a>
         <a href="https://github.com/rodanthi-alexiou/roda-hve">GitHub</a>
       </div>
     </nav>
@@ -35,79 +33,49 @@
 
   <div class="hero">
     <div class="wrap">
-      <p class="eyebrow">Ideas to implement</p>
-      <h1>A lab of things worth building</h1>
+      <p class="eyebrow">Built with HVE + Copilot</p>
+      <h1>Projects</h1>
       <p class="lead">
-        This is the playground. Every card below is a real, shippable scenario
-        &mdash; greenfield or brownfield &mdash; that I build with GitHub Copilot
-        and then use to experiment with agentic SDLC methodologies. Some are live
-        already, most are placeholders waiting for their turn. Pick one, open its
-        walkthrough, and see which method delivers it best.
+        Each project is a production-grade AI app built end-to-end with GitHub
+        Copilot and HVE methodology. The domain changes; the engineering
+        discipline stays constant.
       </p>
-      <div class="tags">
-        <span class="pill">Greenfield &amp; brownfield</span>
-        <span class="pill">Copilot-driven</span>
-        <span class="pill">Method over domain</span>
-        <span class="pill">Secure by default</span>
-      </div>
     </div>
   </div>
 
   <main>
-    <section id="why">
-      <p class="eyebrow">Why this exists</p>
-      <h2>The domain is the excuse, the method is the point</h2>
-      <p class="lead">
-        Some scenarios start from a blank page (greenfield), others plug into an
-        estate that already exists (brownfield). Either way, the interesting
-        question is not "can Copilot build it" &mdash; it clearly can &mdash; it is
-        <strong>which agentic SDLC methodology delivers it best</strong>: fewer
-        iterations, safer output, less rework.
-      </p>
-      <p>
-        That is the whole thesis of this lab. Each idea is a working agentic app
-        built with Copilot and a pile of open material (HVE Core, CAIRA, the Learn
-        MCP, public APIs), then delivered with a chosen methodology so I can
-        compare approaches. The domain changes from card to card; what I am really
-        testing is the process.
-      </p>
-      <div class="grid grid-3">
-        <div class="card">
-          <h3>Reuse, don't reinvent</h3>
-          <p class="muted">Existing resources, CAIRA reference architectures, and validated IaC do the heavy lifting. You write domain logic, not boilerplate &mdash; whether the estate is new or already running.</p>
-        </div>
-        <div class="card">
-          <h3>Grounded, not guessed</h3>
-          <p class="muted">The RPI loop and the Learn MCP keep every step verified against real docs and real code, so the agent stops hallucinating and starts citing.</p>
-        </div>
-        <div class="card">
-          <h3>Secure and fast</h3>
-          <p class="muted">Least-privilege roles, managed identity, and no baked-in keys come from the accelerator, so speed never costs you safety.</p>
-        </div>
-      </div>
-    </section>
-
-    <section id="ideas">
-      <p class="eyebrow">The idea board</p>
-      <h2>Pick a scenario</h2>
-      <p class="lead">
-        The first one is built and deployed. The rest are open slots. As each
-        one gets built, its card turns live and links to a full walkthrough.
-      </p>
-
+    <section id="projects">
       <div class="grid grid-2">
         <!-- FLAGSHIP -->
-        <div class="card">
-          <span class="pill" style="color: var(--green); border-color: var(--green-soft); background: var(--green-soft);">Live POC</span>
+        <div class="card" style="grid-column: 1 / -1;">
+          <span class="pill" style="color: var(--green); border-color: var(--green-soft); background: var(--green-soft);">Live</span>
           <h3 style="margin-top: 14px;">Museum Sidekick</h3>
           <p class="muted">
-            A multimodal agent over the Met's open-access collection. Live today:
-            grounded chat with four Met tools, GPT-4o vision, a chat + gallery UI,
-            and passwordless, scale-to-zero deployment on Azure Container Apps.
+            A multimodal agentic app over the Met Museum's open-access collection.
+            Plan themed self-guided tours, explain artworks with GPT-4o vision,
+            and discover connections across 5,000 years of art.
           </p>
-          <p class="muted"><strong>Latest:</strong> agent observability shipped with the HVE loop &mdash; an RPI agent drove the build and the System Architecture Reviewer produced an ADR (architecture decision record). See the <a href="walkthrough.html#roadmap">case study</a>.</p>
-          <p class="muted"><strong>Uses:</strong> HVE Core &middot; CAIRA &middot; Learn MCP &middot; Met API &middot; azd</p>
-          <p class="muted"><a href="walkthrough.html">Open the full walkthrough &rarr;</a></p>
+          <div class="tags" style="margin: 12px 0;">
+            <span class="pill">TypeScript</span>
+            <span class="pill">Azure AI Foundry</span>
+            <span class="pill">GPT-4o vision</span>
+            <span class="pill">React</span>
+            <span class="pill">Container Apps</span>
+            <span class="pill">Terraform</span>
+            <span class="pill">Met API</span>
+          </div>
+          <p class="muted"><strong>What it demonstrates:</strong></p>
+          <ul class="muted" style="margin: 6px 0 12px 18px; font-size: 0.9rem;">
+            <li>Full RPI loop from spec to deploy</li>
+            <li>Autonomous observability with self-heal</li>
+            <li>Feature delegation to the Coding Agent</li>
+            <li>ADR via System Architecture Reviewer</li>
+            <li>Passwordless, scale-to-zero Azure deployment</li>
+          </ul>
+          <div class="btn-row">
+            <a class="btn btn-primary" href="walkthrough.html">Full walkthrough &rarr;</a>
+            <a class="btn btn-secondary" href="https://github.com/rodanthi-alexiou/roda-hve/tree/main/museum-sidekick">Source code</a>
+          </div>
         </div>
 
         <!-- PLACEHOLDER 2 -->
@@ -116,10 +84,15 @@
           <h3 style="margin-top: 14px;">Support triage copilot</h3>
           <p class="muted">
             An agent that reads incoming tickets, pulls context from existing
-            systems, and drafts a triaged response. Placeholder &mdash; scenario
-            notes and walkthrough to follow.
+            systems, and drafts a triaged response. Brownfield scenario: plug
+            into an existing ticketing store and knowledge base.
           </p>
-          <p class="muted"><strong>Scenario angle:</strong> plug into an existing ticketing store and knowledge base.</p>
+          <div class="tags" style="margin: 12px 0;">
+            <span class="pill">Python</span>
+            <span class="pill">Azure AI Foundry</span>
+            <span class="pill">Semantic Kernel</span>
+            <span class="pill">Existing APIs</span>
+          </div>
         </div>
 
         <!-- PLACEHOLDER 3 -->
@@ -128,54 +101,76 @@
           <h3 style="margin-top: 14px;">Docs Q&amp;A agent</h3>
           <p class="muted">
             Grounded question answering over a team's own documentation, with
-            citations. Placeholder &mdash; to be built on the same accelerator
-            with a different retrieval layer.
+            citations. Index docs already sitting in existing storage and
+            serve answers via a chat interface.
           </p>
-          <p class="muted"><strong>Scenario angle:</strong> index docs already sitting in existing storage.</p>
+          <div class="tags" style="margin: 12px 0;">
+            <span class="pill">TypeScript</span>
+            <span class="pill">Azure AI Search</span>
+            <span class="pill">RAG</span>
+            <span class="pill">SharePoint connector</span>
+          </div>
         </div>
 
         <!-- PLACEHOLDER 4 -->
         <div class="card" style="border-style: dashed;">
-          <span class="pill">Coming soon</span>
-          <h3 style="margin-top: 14px;">Your idea here</h3>
+          <span class="pill">Open slot</span>
+          <h3 style="margin-top: 14px;">Your scenario here</h3>
           <p class="muted">
-            An empty slot on purpose. Swap the Met tool layer for any data source
-            and the whole skeleton retargets. If you have a scenario, this is
-            where it lands.
+            Swap the tool layer for any data source and the whole skeleton
+            retargets. Bring a use case and build it on the same accelerator.
           </p>
-          <p class="muted"><strong>Scenario angle:</strong> greenfield from a spec, or whatever resources you already run.</p>
+          <div class="tags" style="margin: 12px 0;">
+            <span class="pill">Any language</span>
+            <span class="pill">CAIRA scaffold</span>
+            <span class="pill">HVE Core</span>
+          </div>
         </div>
-      </div>
-
-      <div class="callout tip">
-        <strong>Same discipline, different domain &mdash; and different method</strong>
-        <p>
-          Every idea on this board is built with Copilot and then delivered with a
-          chosen agentic SDLC methodology. The tool layer that talks to the domain
-          data is usually the only big thing that changes. See the
-          <a href="reference.html#accelerator">accelerator mapping</a>
-          for how that swap works.
-        </p>
       </div>
     </section>
 
-    <section id="next" class="center">
-      <p class="eyebrow">Start with the flagship</p>
+    <section id="pattern">
+      <p class="eyebrow">The pattern</p>
+      <h2>Same accelerator, different domain</h2>
+      <p>
+        Every project on this page follows the same structure: CAIRA provides the
+        scaffold, HVE Core drives the loop, and the domain-specific piece is just
+        the tool layer that talks to external data. The <a href="reference.html">references page</a>
+        maps each building block.
+      </p>
+      <div class="grid grid-3">
+        <div class="card">
+          <h3>Reuse, don't reinvent</h3>
+          <p class="muted">CAIRA reference architectures and validated IaC do the heavy lifting. You write domain logic, not boilerplate.</p>
+        </div>
+        <div class="card">
+          <h3>Grounded, not guessed</h3>
+          <p class="muted">The RPI loop and the Learn MCP keep every step verified against real docs and real code.</p>
+        </div>
+        <div class="card">
+          <h3>Secure by default</h3>
+          <p class="muted">Least-privilege roles, managed identity, and no baked-in keys come from the accelerator.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="center">
+      <p class="eyebrow">Start here</p>
       <h2>Build Museum Sidekick first</h2>
       <p class="lead" style="margin: 0 auto 24px;">
         It is the one with a finished walkthrough. Do this one end to end, then
-        reuse everything you learned on the next idea.
+        reuse everything you learned on the next project.
       </p>
       <div class="btn-row" style="justify-content: center;">
-        <a class="btn btn-primary" href="getting-started.html">Set up your tools &rarr;</a>
-        <a class="btn btn-secondary" href="walkthrough.html">See the 7 steps</a>
+        <a class="btn btn-primary" href="walkthrough.html">Open the walkthrough &rarr;</a>
+        <a class="btn btn-secondary" href="adopt-scale.html">How to scale it org-wide</a>
       </div>
     </section>
   </main>
 
   <footer class="site-footer">
     <div class="wrap">
-      <span>HVE Practices Lab &middot; Museum Sidekick is the live flagship scenario</span>
+      <span>HVE Practices Lab &middot; Built with GitHub Copilot</span>
       <span>
         <a href="https://github.com/microsoft/hve-core">HVE Core</a> &middot;
         <a href="https://github.com/microsoft/CAIRA">CAIRA</a> &middot;

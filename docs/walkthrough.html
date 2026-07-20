@@ -22,12 +22,10 @@
       </a>
       <div class="nav-links">
         <a href="index.html">Home</a>
-        <a href="getting-started.html">Getting Started</a>
-        <a href="ideas.html">Ideas</a>
         <a href="walkthrough.html" class="active">Walkthrough</a>
-        <a href="build-approaches.html">Approaches</a>
-        <a href="reference.html">Reference</a>
-        <a href="resources.html">Resources</a>
+        <a href="ideas.html">Projects</a>
+        <a href="reference.html">References</a>
+        <a href="adopt-scale.html">Adopt &amp; Scale</a>
         <a href="https://github.com/rodanthi-alexiou/roda-hve">GitHub</a>
       </div>
     </nav>
@@ -43,6 +41,7 @@
         and reuses CAIRA components instead of hand-written boilerplate.
       </p>
       <div class="chooser">
+        <a href="#approaches">Build approaches</a>
         <a href="#step-1">1 &middot; Scaffold</a>
         <a href="#step-2">2 &middot; Foundry Agent</a>
         <a href="#step-3">3 &middot; Met Tools</a>
@@ -57,6 +56,100 @@
   </div>
 
   <main>
+    <!-- BUILD APPROACHES -->
+    <section id="approaches">
+      <p class="eyebrow">Execution modes</p>
+      <h2>Three ways to run the same loop</h2>
+      <p>
+        Research &rarr; Plan &rarr; Implement &rarr; Review is the constant. What
+        changes is who holds the pen and where the audit trail lives.
+      </p>
+      <table>
+        <thead>
+          <tr><th>Approach</th><th>Who drives the loop</th><th>Where artifacts live</th><th>Best for</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Manual / ad hoc</td><td>You, prompt by prompt</td><td>Chat history only</td><td>Throwaway spikes, one-file changes</td></tr>
+          <tr><td>Hybrid (methodology only)</td><td>You, following the RPI shape by hand</td><td>Hand-authored tracking files</td><td>Learning the loop, tight control</td></tr>
+          <tr><td>True HVE-Core RPI</td><td>The <code>/rpi</code> agent and its subagents</td><td>Auto-generated under <code>.copilot-tracking/</code></td><td>Repeatable, auditable team-scale work</td></tr>
+        </tbody>
+      </table>
+
+      <details>
+        <summary>How the baseline POC was built (hybrid approach)</summary>
+        <div class="details-content">
+          <p>
+            The working proof-of-concept in <code>museum-sidekick/</code> was built with the
+            <strong>hybrid</strong> approach. The RPI <em>shape</em> was followed deliberately,
+            but without invoking the real HVE-Core agents. Tracking documents were authored by hand.
+          </p>
+          <table>
+            <thead>
+              <tr><th>Topic</th><th>Tutorial says</th><th>The POC does</th><th>Why</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Project folder</td><td><code>agentic-sidekick</code></td><td><code>museum-sidekick</code></td><td>Clearer product name</td></tr>
+              <tr><td>Agent runtime</td><td>Foundry Agent Service SDK</td><td>Azure OpenAI GPT-4o via chat-completions</td><td>Cheaper, fully testable</td></tr>
+              <tr><td>Auth</td><td>Not specified</td><td>Passwordless with <code>DefaultAzureCredential</code></td><td>No secrets in the app</td></tr>
+              <tr><td>Hosting</td><td>Container Apps</td><td>Container Apps with scale-to-zero</td><td>No cost when idle</td></tr>
+              <tr><td>IaC</td><td>CAIRA Terraform</td><td>Low-cost Terraform grounded in CAIRA</td><td>Kept minimal for POC</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </details>
+
+      <details>
+        <summary>What a true HVE-Core build looks like (build_tour feature)</summary>
+        <div class="details-content">
+          <p>
+            The <code>build_tour</code> feature drives a single new tool end-to-end through
+            the real HVE-Core workflow. Every phase is executed by an agent and leaves a verifiable artifact.
+          </p>
+          <div class="flow" role="img" aria-label="RPI flow">
+            <span class="pill">Research</span>
+            <span class="flow-arrow">&rarr;</span>
+            <span class="pill">Plan</span>
+            <span class="flow-arrow">&rarr;</span>
+            <span class="pill">Implement</span>
+            <span class="flow-arrow">&rarr;</span>
+            <span class="pill">Review</span>
+            <span class="flow-arrow">&rarr;</span>
+            <span class="pill">Discover</span>
+          </div>
+          <table>
+            <thead>
+              <tr><th>Phase</th><th>HVE-Core agent</th><th>Artifact</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Research</td><td><code>Researcher Subagent</code></td><td><code>research/build-tour-research.md</code></td></tr>
+              <tr><td>Plan</td><td><code>task-planner</code> + <code>Plan Validator</code></td><td><code>plans/build-tour-plan.md</code></td></tr>
+              <tr><td>Implement</td><td><code>Phase Implementor</code></td><td><code>changes/</code> change log</td></tr>
+              <tr><td>Review</td><td><code>task-reviewer</code> + <code>RPI Validator</code></td><td>Review with severity grades</td></tr>
+              <tr><td>Discover</td><td><code>RPI Agent</code></td><td>Follow-up work items</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </details>
+
+      <details>
+        <summary>When to use which approach</summary>
+        <div class="details-content">
+          <table>
+            <thead>
+              <tr><th>If you need to&hellip;</th><th>Use</th><th>Because</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Try an idea and throw it away</td><td>Manual / ad hoc</td><td>Structure would slow you down</td></tr>
+              <tr><td>Learn the loop or keep tight control</td><td>Hybrid</td><td>You see every step and decide each move</td></tr>
+              <tr><td>Ship a feature others will review</td><td>True HVE-Core RPI</td><td>Auto-generated artifacts are the audit trail</td></tr>
+              <tr><td>Prove grounding to a stakeholder</td><td>True HVE-Core RPI</td><td>Tracking files show research, not assertion</td></tr>
+              <tr><td>Delegate a whole feature</td><td>Coding Agent (Step 6)</td><td>Agent works async and opens a PR</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </details>
+    </section>
+
     <figure class="shot">
       <img src="assets/first-draft-ui.png" alt="The Museum Sidekick UI after the first azd up: a chat panel on the left and a gallery grid of artworks on the right." />
       <figcaption>The very first <code>azd up</code> &mdash; the baseline GitHub Copilot generated end to end</figcaption>
@@ -758,7 +851,7 @@ Show me examples.</code></pre>
           of guessed at. More importantly, this increment is the template &mdash;
           RPI agent drives the loop, a specialist reviewer settles the forks, and
           an ADR records the why. Each item above becomes its own mini-walkthrough.
-          Track them from the <a href="ideas.html">idea board</a>.
+          Track them on the <a href="ideas.html">Projects page</a>.
         </p>
       </div>
     </section>

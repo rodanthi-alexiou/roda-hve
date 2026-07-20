@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Reference — HVE Practices Lab</title>
-  <meta name="description" content="CAIRA component mapping and the Met Collection API endpoints, fields, and agent-tool reference used throughout the walkthrough." />
+  <title>References — HVE Practices Lab</title>
+  <meta name="description" content="Building blocks, tools, and API references for the HVE Practices Lab. GitHub Copilot skills, HVE Core, CAIRA, Microsoft Learn MCP, and the Met Collection API." />
   <link rel="icon" type="image/jpeg" href="assets/icon.jpg" />
   <link rel="stylesheet" href="assets/styles.css" />
 </head>
@@ -22,12 +22,10 @@
       </a>
       <div class="nav-links">
         <a href="index.html">Home</a>
-        <a href="getting-started.html">Getting Started</a>
-        <a href="ideas.html">Ideas</a>
         <a href="walkthrough.html">Walkthrough</a>
-        <a href="build-approaches.html">Approaches</a>
-        <a href="reference.html" class="active">Reference</a>
-        <a href="resources.html">Resources</a>
+        <a href="ideas.html">Projects</a>
+        <a href="reference.html" class="active">References</a>
+        <a href="adopt-scale.html">Adopt &amp; Scale</a>
         <a href="https://github.com/rodanthi-alexiou/roda-hve">GitHub</a>
       </div>
     </nav>
@@ -35,34 +33,152 @@
 
   <div class="hero">
     <div class="wrap">
-      <p class="eyebrow">Reference</p>
-      <h1>Accelerator and API reference</h1>
+      <p class="eyebrow">References</p>
+      <h1>Building blocks and API reference</h1>
       <p class="lead">
-        How the CAIRA reference components map to the system, and the full Met
-        Collection API endpoints, fields, and agent-tool mapping used throughout
-        the build.
+        Every repo, tool, skill, and API used in the lab. Organized by layer so
+        you can find the right link and understand how each piece was used.
       </p>
       <div class="chooser">
-        <a href="#accelerator">CAIRA accelerator</a>
+        <a href="#copilot-skills">Copilot Skills</a>
+        <a href="#building-blocks">HVE + CAIRA + Learn</a>
+        <a href="#copilot-surfaces">Copilot Surfaces</a>
+        <a href="#azure">Azure &amp; IaC</a>
+        <a href="#accelerator">CAIRA Mapping</a>
         <a href="#met-api">Met API</a>
-        <a href="#tools">Agent tools</a>
+        <a href="#tools">Agent Tools</a>
+        <a href="#brownfield">Brownfield Kit</a>
       </div>
     </div>
   </div>
 
   <main>
+    <!-- COPILOT SKILLS -->
+    <section id="copilot-skills">
+      <p class="eyebrow">GitHub Copilot skills</p>
+      <h2>The skills that drive the loop</h2>
+      <p>
+        These skills are installed as VS Code extensions or configured in
+        <code>.copilot/</code>. They give Copilot Chat the domain knowledge it
+        needs to scaffold, ground, and validate.
+      </p>
+      <table>
+        <thead>
+          <tr><th>Skill</th><th>Source</th><th>Role in the build</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>HVE Core RPI</strong></td>
+            <td><a href="https://github.com/microsoft/hve-core">microsoft/hve-core</a></td>
+            <td>The <code>/rpi-research</code>, <code>/rpi-plan</code>, <code>/rpi-implement</code>, and <code>/rpi-review</code> prompts that drive research-first development</td>
+          </tr>
+          <tr>
+            <td><strong>CAIRA</strong></td>
+            <td><a href="https://github.com/microsoft/CAIRA">microsoft/CAIRA</a></td>
+            <td>Reference architectures as a skill: scaffold projects from validated Foundry, Container Apps, agent API, and React components</td>
+          </tr>
+          <tr>
+            <td><strong>Microsoft Learn MCP</strong></td>
+            <td><a href="https://learn.microsoft.com/api/mcp">learn.microsoft.com/api/mcp</a></td>
+            <td>Live, grounded access to official Microsoft docs during Research phases so nothing is invented</td>
+          </tr>
+          <tr>
+            <td><strong>System Architecture Reviewer</strong></td>
+            <td>HVE Core</td>
+            <td>Specialist agent for architectural trade-offs. Produces ADRs grounded in Well-Architected pillars</td>
+          </tr>
+          <tr>
+            <td><strong>Azure MCP Server</strong></td>
+            <td><a href="https://github.com/Azure/azure-mcp">Azure/azure-mcp</a></td>
+            <td>Lets Copilot query live Azure subscriptions: what resources exist, how they are configured</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- BUILDING BLOCKS -->
+    <section id="building-blocks">
+      <p class="eyebrow">Core building blocks</p>
+      <h2>The three things the whole lab stands on</h2>
+      <table>
+        <thead>
+          <tr><th>Resource</th><th>What it is</th><th>How it was used</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><a href="https://github.com/microsoft/hve-core">microsoft/hve-core</a></td>
+            <td>High Velocity Engineering: agents, prompts, and the RPI loop</td>
+            <td>Drove every step through Research &rarr; Plan &rarr; Implement &rarr; Review instead of raw prompting</td>
+          </tr>
+          <tr>
+            <td><a href="https://github.com/microsoft/CAIRA">microsoft/CAIRA</a></td>
+            <td>Reference architectures for gen-AI apps on Azure</td>
+            <td>Supplied Foundry IaC, Container Apps IaC, agent API, and React frontend — almost everything but the domain logic</td>
+          </tr>
+          <tr>
+            <td><a href="https://learn.microsoft.com/api/mcp">Microsoft Learn MCP</a></td>
+            <td>Live, grounded access to official Microsoft docs</td>
+            <td>Verified Foundry, azd, and Container Apps APIs during Research so nothing was invented</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="callout tip">
+        <strong>Why this combination works</strong>
+        <p>
+          HVE gives you the method, CAIRA gives you the architecture, the Learn
+          MCP keeps it grounded in current docs. Together they turn "build an
+          agentic app" from a weeks-long project into a guided, repeatable path.
+        </p>
+      </div>
+    </section>
+
+    <!-- COPILOT SURFACES -->
+    <section id="copilot-surfaces">
+      <p class="eyebrow">Copilot surfaces</p>
+      <h2>Where the agent actually worked</h2>
+      <div class="grid grid-3">
+        <div class="card">
+          <h3>Copilot Chat</h3>
+          <p class="muted">The main cockpit. Ran the RPI phases, read the CAIRA skill, and called the Learn MCP tools.</p>
+        </div>
+        <div class="card">
+          <h3>Coding Agent</h3>
+          <p class="muted">Handed a whole feature, went off, and opened a pull request to review. See <a href="walkthrough.html#step-6">Step 6</a>.</p>
+        </div>
+        <div class="card">
+          <h3>Copilot CLI</h3>
+          <p class="muted">Optional. HVE installs as a plugin so the same loop runs from the terminal when that fits better.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- AZURE / IAC -->
+    <section id="azure">
+      <p class="eyebrow">Azure and infrastructure</p>
+      <h2>What runs it, and what stands it up</h2>
+      <table>
+        <thead>
+          <tr><th>Resource</th><th>Role in the build</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Azure AI Foundry (Agent Service)</td><td>Hosts the GPT-4o vision agent and its tool-calling loop</td></tr>
+          <tr><td>Azure Container Apps</td><td>Runs two containers: the API and the React frontend</td></tr>
+          <tr><td><a href="https://learn.microsoft.com/azure/developer/azure-developer-cli/">Azure Developer CLI (azd)</a></td><td>One <code>azd up</code> to provision and deploy everything</td></tr>
+          <tr><td><a href="https://developer.hashicorp.com/terraform">Terraform</a></td><td>The CAIRA infrastructure as code, applied by azd</td></tr>
+          <tr><td>Managed identity + RBAC</td><td>Least-privilege access with no keys in the app, from CAIRA templates</td></tr>
+          <tr><td>GPT-4o with vision</td><td>Reads real artwork images and explains them in plain language</td></tr>
+        </tbody>
+      </table>
+    </section>
+
     <!-- CAIRA ACCELERATOR -->
     <section id="accelerator">
-      <p class="eyebrow">Golden accelerator</p>
+      <p class="eyebrow">Accelerator mapping</p>
       <h2>CAIRA as a reusable accelerator</h2>
       <p>
-        The Museum Sidekick is a demo, but the pattern under it is a reusable
-        accelerator. Almost everything except the Met tool layer came from CAIRA,
-        so partners spend their time on domain logic, not on infrastructure and
-        scaffolding.
+        Almost everything except the Met tool layer came from CAIRA. Partners
+        spend their time on domain logic, not infrastructure and scaffolding.
       </p>
-
-      <h3>The component mapping</h3>
       <table>
         <thead>
           <tr><th>System layer</th><th>CAIRA component</th><th>What you customized</th></tr>
@@ -76,12 +192,7 @@
         </tbody>
       </table>
 
-      <h3>The one layer that changes</h3>
-      <p>
-        The Met tool layer is the only domain-specific code in the whole system.
-        Everything else is reusable. To retarget the accelerator, you swap that
-        layer for tools over a different data source.
-      </p>
+      <h3>Retarget to a different domain</h3>
       <table>
         <thead>
           <tr><th>Partner domain</th><th>Data source behind the tools</th><th>Example capability</th></tr>
@@ -93,21 +204,6 @@
           <tr><td>Field services</td><td>Equipment and manuals API</td><td>"Diagnose this part from a photo"</td></tr>
         </tbody>
       </table>
-      <p class="muted">
-        Each of these reuses the Foundry agent, the Container Apps hosting, the
-        React shell, the tests-and-self-heal loop, and the deploy flow unchanged.
-        Only the tool layer and the agent's instructions change.
-      </p>
-      <div class="callout tip">
-        <strong>Why this matters for the HVE story</strong>
-        <p>
-          HVE's research-first RPI loop keeps every step grounded and verifiable,
-          and CAIRA supplies validated infrastructure and scaffolding. Together
-          they turn "build an agentic app" from a weeks-long project into a
-          guided, repeatable path a partner can follow with their own data on day
-          one.
-        </p>
-      </div>
     </section>
 
     <!-- MET API -->
@@ -134,47 +230,42 @@
           <tr><th>Endpoint</th><th>Returns</th><th>Notes</th></tr>
         </thead>
         <tbody>
-          <tr><td><code>/search</code></td><td>An array of object IDs only</td><td>You must fan out to <code>/objects/{id}</code> for details</td></tr>
-          <tr><td><code>/objects/{id}</code></td><td>Full metadata and image URLs</td><td>The workhorse; batch and cache these calls</td></tr>
+          <tr><td><code>/search</code></td><td>An array of object IDs only</td><td>Must fan out to <code>/objects/{id}</code> for details</td></tr>
+          <tr><td><code>/objects/{id}</code></td><td>Full metadata and image URLs</td><td>Batch and cache these calls</td></tr>
           <tr><td><code>/objects</code></td><td>All object IDs and a total</td><td>Rarely needed for the demo</td></tr>
           <tr><td><code>/departments</code></td><td>The list of departments</td><td>Powers themed, cross-department tours</td></tr>
         </tbody>
       </table>
 
       <h3>Key search filters</h3>
-      <p>Pass these as query parameters on <code>/search</code>.</p>
       <table>
         <thead>
           <tr><th>Filter</th><th>Purpose</th></tr>
         </thead>
         <tbody>
-          <tr><td><code>q</code></td><td>Free-text query (required by <code>/search</code>)</td></tr>
+          <tr><td><code>q</code></td><td>Free-text query (required)</td></tr>
           <tr><td><code>isHighlight</code></td><td>Limit to curator-highlighted works</td></tr>
           <tr><td><code>hasImages</code></td><td>Limit to works with images (always use this)</td></tr>
           <tr><td><code>isOnView</code></td><td>Limit to works currently on display</td></tr>
           <tr><td><code>departmentId</code></td><td>Limit to a department</td></tr>
-          <tr><td><code>medium</code></td><td>Filter by medium, for example Paintings</td></tr>
+          <tr><td><code>medium</code></td><td>Filter by medium</td></tr>
           <tr><td><code>geoLocation</code></td><td>Filter by geographic location</td></tr>
-          <tr><td><code>tags</code></td><td>Filter by subject tags, for example Cats</td></tr>
+          <tr><td><code>tags</code></td><td>Filter by subject tags</td></tr>
           <tr><td><code>dateBegin</code> / <code>dateEnd</code></td><td>Filter by date range</td></tr>
-          <tr><td><code>artistOrCulture</code></td><td>Match against the artist or culture field</td></tr>
-          <tr><td><code>title</code></td><td>Match against the title field</td></tr>
         </tbody>
       </table>
 
       <h3>Key object fields</h3>
-      <p>Returned by <code>/objects/{id}</code>.</p>
       <table>
         <thead>
           <tr><th>Field</th><th>Use</th></tr>
         </thead>
         <tbody>
           <tr><td><code>isPublicDomain</code></td><td>Only display when true</td></tr>
-          <tr><td><code>primaryImage</code></td><td>The full-resolution image URL</td></tr>
+          <tr><td><code>primaryImage</code></td><td>Full-resolution image URL</td></tr>
           <tr><td><code>department</code></td><td>Grouping for cross-department tours</td></tr>
           <tr><td><code>culture</code></td><td>Powers cross-cultural connections</td></tr>
           <tr><td><code>period</code></td><td>Sequences works by era</td></tr>
-          <tr><td><code>medium</code></td><td>Describes the material</td></tr>
           <tr><td><code>tags</code></td><td>Subject tags for finding related works</td></tr>
           <tr><td><code>title</code></td><td>Display title</td></tr>
         </tbody>
@@ -185,68 +276,84 @@
     <section id="tools">
       <p class="eyebrow">Agent tools</p>
       <h2>Agent tool mapping</h2>
-      <p>Each agent tool maps to one or more endpoints.</p>
       <table>
         <thead>
           <tr><th>Agent tool</th><th>Parameters</th><th>Endpoint</th><th>Notes</th></tr>
         </thead>
         <tbody>
-          <tr><td><code>search_collection</code></td><td><code>q</code>, <code>departmentId</code>, <code>medium</code>, <code>geoLocation</code>, <code>dateBegin</code>, <code>dateEnd</code>, <code>hasImages</code>, <code>isHighlight</code>, <code>isOnView</code>, <code>tags</code></td><td><code>/search</code></td><td>Returns IDs; the tool fans out to get objects</td></tr>
-          <tr><td><code>get_object</code></td><td><code>objectID</code></td><td><code>/objects/{id}</code></td><td>Batched and cached in the tool layer</td></tr>
-          <tr><td><code>list_departments</code></td><td>none</td><td><code>/departments</code></td><td>Enables themed, cross-department tours</td></tr>
-          <tr><td><code>build_tour</code></td><td>derived</td><td>derived</td><td>Sequences results by tag, culture, or period</td></tr>
+          <tr><td><code>search_collection</code></td><td><code>q</code>, <code>departmentId</code>, <code>medium</code>, <code>geoLocation</code>, <code>dateBegin</code>, <code>dateEnd</code>, <code>hasImages</code>, <code>isHighlight</code>, <code>isOnView</code>, <code>tags</code></td><td><code>/search</code></td><td>Returns IDs; fans out to get objects</td></tr>
+          <tr><td><code>get_object</code></td><td><code>objectID</code></td><td><code>/objects/{id}</code></td><td>Batched and cached</td></tr>
+          <tr><td><code>list_departments</code></td><td>none</td><td><code>/departments</code></td><td>Enables cross-department tours</td></tr>
+          <tr><td><code>build_tour</code></td><td>derived</td><td>derived</td><td>Sequences by tag, culture, or period</td></tr>
           <tr><td><code>find_related</code></td><td><code>objectID</code></td><td>derived</td><td>Matches on shared tags, culture, or period</td></tr>
         </tbody>
       </table>
 
       <h3>The N+1 guardrail</h3>
       <p>
-        Because <code>/search</code> returns only IDs, retrieving details for a
-        result set is an N+1 problem. The tool layer solves it with a batched,
-        cached fetch that caps concurrency and filters to public-domain works with
-        images. See <a href="walkthrough.html#step-3">Step 3</a> for the
-        implementation.
-      </p>
-
-      <h3>Official documentation</h3>
-      <p>
-        For the authoritative API details, see the
-        <a href="https://metmuseum.github.io/">Met Collection API documentation</a>.
+        Because <code>/search</code> returns only IDs, retrieving details is an
+        N+1 problem. The tool layer solves it with a batched, cached fetch that
+        caps concurrency and filters to public-domain works with images. See
+        <a href="walkthrough.html#step-3">Step 3</a> for the implementation.
       </p>
 
       <h3>Implementation notes (the built POC)</h3>
-      <p>
-        A working proof-of-concept lives in the <code>museum-sidekick/</code>
-        folder. It makes a few deliberate, cost-conscious choices that diverge
-        from the walkthrough text; treat these as the source of truth.
-      </p>
       <table>
         <thead>
           <tr><th>Topic</th><th>Walkthrough</th><th>The POC</th></tr>
         </thead>
         <tbody>
           <tr><td>Project folder</td><td><code>agentic-sidekick</code></td><td><code>museum-sidekick</code></td></tr>
-          <tr><td>Agent runtime</td><td>Foundry Agent Service SDK</td><td>Azure OpenAI GPT-4o chat-completions with function tool-calling and vision</td></tr>
-          <tr><td>Auth</td><td>&mdash;</td><td>Passwordless (Managed Identity) with API-key fallback for local dev</td></tr>
+          <tr><td>Agent runtime</td><td>Foundry Agent Service SDK</td><td>Azure OpenAI GPT-4o chat-completions with function tool-calling</td></tr>
+          <tr><td>Auth</td><td>—</td><td>Passwordless (Managed Identity) with API-key fallback for local dev</td></tr>
           <tr><td>GPT-4o capacity</td><td>30</td><td>10 (10K TPM)</td></tr>
           <tr><td>Hosting</td><td>Container Apps</td><td>Container Apps scaled to zero, Basic-tier ACR</td></tr>
         </tbody>
       </table>
-      <p>
-        <strong>Cost reminder:</strong> run <code>azd down --purge</code> when
-        finished to stop charges and purge the soft-deleted Azure OpenAI account.
-      </p>
+      <p class="muted"><strong>Cost reminder:</strong> run <code>azd down --purge</code> when finished to stop charges.</p>
+    </section>
 
-      <div class="btn-row">
+    <!-- BROWNFIELD KIT -->
+    <section id="brownfield">
+      <p class="eyebrow">Brownfield kit</p>
+      <h2>For when the cloud is not empty</h2>
+      <p>
+        The flagship built into a fresh resource group, but many scenarios
+        target existing estates. These pieces help you wire into what is already
+        running.
+      </p>
+      <div class="grid grid-2">
+        <div class="card">
+          <h3>Azure MCP server</h3>
+          <p class="muted">Lets Copilot query your live subscription — what resources exist, how they are configured — before planning a change.</p>
+        </div>
+        <div class="card">
+          <h3>Infrastructure export</h3>
+          <p class="muted">Turn existing resources into Bicep or Terraform so the brownfield estate becomes code you can review and extend.</p>
+        </div>
+        <div class="card">
+          <h3>Well-Architected guidance</h3>
+          <p class="muted">Security, reliability, and cost checks to run against the existing footprint before and after changes.</p>
+        </div>
+        <div class="card" style="border-style: dashed;">
+          <span class="pill">Coming soon</span>
+          <h3 style="margin-top: 14px;">Brownfield playbook</h3>
+          <p class="muted">A dedicated walkthrough for discovering, importing, and safely extending an existing Azure estate.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="center">
+      <div class="btn-row" style="justify-content: center;">
         <a class="btn btn-primary" href="walkthrough.html">Back to the walkthrough &rarr;</a>
-        <a class="btn btn-secondary" href="index.html">Home</a>
+        <a class="btn btn-secondary" href="adopt-scale.html">Scale it org-wide</a>
       </div>
     </section>
   </main>
 
   <footer class="site-footer">
     <div class="wrap">
-      <span>HVE Practices Lab &middot; Museum Sidekick is the live flagship scenario</span>
+      <span>HVE Practices Lab &middot; Built with GitHub Copilot</span>
       <span>
         <a href="https://github.com/microsoft/hve-core">HVE Core</a> &middot;
         <a href="https://github.com/microsoft/CAIRA">CAIRA</a> &middot;

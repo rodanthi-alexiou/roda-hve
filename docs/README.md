@@ -1,8 +1,8 @@
 ---
-title: "Museum Sidekick: An HVE + CAIRA Walkthrough"
-description: "End-to-end partner walkthrough for building a multimodal agentic app with GitHub Copilot, Hypervelocity Engineering, CAIRA, and the Microsoft Learn MCP"
+title: "HVE Practices Lab — GitHub Pages Site"
+description: "Partner-facing static site demonstrating HVE methodology, CAIRA accelerators, and GitHub Copilot for building production AI apps"
 author: Microsoft
-ms.date: 2026-07-03
+ms.date: 2026-07-07
 ms.topic: overview
 keywords:
   - hypervelocity engineering
@@ -10,35 +10,30 @@ keywords:
   - caira
   - foundry agent service
   - azure container apps
-estimated_reading_time: 6
+estimated_reading_time: 3
 ---
 
-## Museum Sidekick: An HVE + CAIRA Walkthrough
+## HVE Practices Lab — Site Structure
 
-This walkthrough shows partners how to build a real, deployable AI application
-using [Hypervelocity Engineering (HVE)](https://github.com/microsoft/hve-core),
-the [CAIRA](https://github.com/microsoft/CAIRA) reference architectures, and the
-[Microsoft Learn MCP](https://learn.microsoft.com/training/support/mcp) server,
-all driven from GitHub Copilot.
+This is a GitHub Pages static site that demonstrates how to use
+[HVE](https://github.com/microsoft/hve-core),
+[CAIRA](https://github.com/microsoft/CAIRA), and GitHub Copilot together to
+ship production AI applications faster with proven engineering practices.
 
-The example we build is **The Visitor's Agentic Sidekick**: a conversational,
-multimodal agent that turns the Metropolitan Museum of Art's 470,000+ open-access
-artworks into curated, narrated experiences. Ask it *"Build me a 6-stop family
-tour on animals in art across cultures"* and it searches the collection, filters
-to works with public-domain images, sequences the stops, writes narration, and
-renders a visual gallery.
+### Site navigation (5 tabs)
 
-The museum app is the demo. The transferable asset is the **pattern**: an agent
-plus domain-API tools, built through the HVE loop, composed from CAIRA, deployed
-to Azure. Swap the museum tool layer for any partner's domain API and the same
-accelerator delivers a retail catalog assistant, a product-docs copilot, or an
-internal knowledge-base agent.
+| Page | File | Purpose |
+| ---- | ---- | ------- |
+| **Home** | `index.html` | Quick summary of HVE, how it accelerates the SDLC, and what the site contains |
+| **Walkthrough** | `walkthrough.html` | 7-step build guide, build approaches comparison, implementation blocks |
+| **Projects** | `ideas.html` | Showcase of projects built with HVE methodology (Museum Sidekick featured) |
+| **References** | `reference.html` | Copilot skills, building blocks, CAIRA mapping, Met API, brownfield kit |
+| **Adopt &amp; Scale** | `adopt-scale.html` | Organizational adoption guide with fictional Contoso Corp storyline |
 
 ### Who this is for
 
-You are a partner engineer or architect who wants to see how HVE, CAIRA, and
-Copilot fit together on a concrete build. No prior HVE experience is required.
-Basic familiarity with TypeScript, Azure, and GitHub Copilot Chat is helpful.
+Partner engineers and architects who want to see how HVE, CAIRA, and Copilot fit
+together on a concrete build. No prior HVE experience required.
 
 ### What you will build
 

@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Adopt &amp; Scale — HVE Practices Lab</title>
+  <meta name="description" content="How to adopt HVE methodology in an organization: pilot with one team, establish shared practices, then scale across teams with centralized, reusable content." />
+  <link rel="icon" type="image/jpeg" href="assets/icon.jpg" />
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav">
+      <a class="brand" href="index.html">
+        <span class="logo" aria-hidden="true">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2 20.5 7v10L12 22 3.5 17V7L12 2Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+            <path d="M12 7v10M7.5 9.5l9 5M16.5 9.5l-9 5" stroke="currentColor" stroke-width="1.2"/>
+          </svg>
+        </span>
+        HVE Practices Lab
+      </a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="walkthrough.html">Walkthrough</a>
+        <a href="ideas.html">Projects</a>
+        <a href="reference.html">References</a>
+        <a href="adopt-scale.html" class="active">Adopt &amp; Scale</a>
+        <a href="https://github.com/rodanthi-alexiou/roda-hve">GitHub</a>
+      </div>
+    </nav>
+  </header>
+
+  <div class="hero">
+    <div class="wrap">
+      <p class="eyebrow">Organizational adoption</p>
+      <h1>Adopt and scale HVE across teams</h1>
+      <p class="lead">
+        One developer piloting the loop is useful. An entire organization sharing
+        skills, prompts, and validated IaC is transformational. This page shows
+        how to get from one to the other — told through a fictional partner who
+        did exactly that.
+      </p>
+    </div>
+  </div>
+
+  <main>
+    <!-- STORYLINE INTRO -->
+    <section id="story">
+      <p class="eyebrow">A realistic adoption story</p>
+      <h2>How Contoso Corp scaled from one team to organization-wide</h2>
+      <p>
+        Contoso Corp is a fictional ISV with 12 engineering teams building SaaS
+        products on Azure. One platform team discovered HVE during a hackathon.
+        Six months later, every team uses shared skills and ships with the same
+        RPI discipline. Here is what each phase looked like.
+      </p>
+    </section>
+
+    <!-- PHASE 1 -->
+    <section id="phase-1" class="timeline-section">
+      <div class="timeline-marker">
+        <span class="badge">1</span>
+      </div>
+      <h2>Phase 1: Pilot</h2>
+      <p class="meta">One team &middot; one project &middot; two weeks</p>
+      <p>
+        The platform team picks a single greenfield feature — an internal
+        knowledge-base agent — and builds it end-to-end with HVE. The goal is not
+        to ship a product; it is to prove the loop works and measure the delta.
+      </p>
+
+      <h3>What they did</h3>
+      <ul>
+        <li>Installed the HVE Core extension in VS Code</li>
+        <li>Configured the CAIRA skill and Microsoft Learn MCP</li>
+        <li>Ran the full RPI loop on their feature: research, plan, implement, review</li>
+        <li>Measured: iterations to working code, bugs caught by the review phase, time to first deploy</li>
+      </ul>
+
+      <div class="callout">
+        <strong>What Contoso actually ran</strong>
+        <pre><code># Install HVE Core extension
+code --install-extension ise-hve-essentials.hve-core-all
+
+# Configure the CAIRA skill in .copilot/skills/
+mkdir -p .copilot/skills/caira
+# Point to the installed CAIRA reference-architectures
+
+# Add Learn MCP to .vscode/mcp.json
+{
+  "servers": {
+    "microsoft-learn": {
+      "type": "sse",
+      "url": "https://learn.microsoft.com/api/mcp",
+      "headers": {}
+    }
+  }
+}</code></pre>
+      </div>
+
+      <h3>Pilot outcomes</h3>
+      <div class="grid grid-3">
+        <div class="card">
+          <h3>40% fewer iterations</h3>
+          <p class="muted">Research-first meant the agent did not invent APIs. The team stopped fixing hallucinated code and started reviewing real code.</p>
+        </div>
+        <div class="card">
+          <h3>Self-heal caught 3 bugs</h3>
+          <p class="muted">The review phase caught and fixed issues before any human saw them. No separate QA pass needed for those.</p>
+        </div>
+        <div class="card">
+          <h3>First deploy in 4 days</h3>
+          <p class="muted">Using CAIRA IaC instead of authoring Terraform from scratch cut the infra setup from days to an hour.</p>
+        </div>
+      </div>
+
+      <div class="callout tip">
+        <strong>Pilot success criteria</strong>
+        <p>
+          The pilot proves three things: (1) the loop produces auditable
+          artifacts, (2) the research phase eliminates hallucination, (3) the
+          team can ship faster with less rework. If all three hold, proceed to
+          Phase 2.
+        </p>
+      </div>
+    </section>
+
+    <!-- PHASE 2 -->
+    <section id="phase-2" class="timeline-section">
+      <div class="timeline-marker">
+        <span class="badge">2</span>
+      </div>
+      <h2>Phase 2: Establish</h2>
+      <p class="meta">Three teams &middot; shared skill library &middot; one month</p>
+      <p>
+        The pilot team packages their learnings into shared, reusable assets.
+        Two more teams adopt HVE using those assets instead of starting from
+        scratch.
+      </p>
+
+      <h3>What they built</h3>
+      <ul>
+        <li>A <strong>shared skill library</strong> in an internal GitHub repo with domain-specific CAIRA extensions</li>
+        <li>A <strong>team playbook</strong>: which RPI phases to always run, when to invoke the System Architecture Reviewer, ADR templates</li>
+        <li>A <strong>starter template</strong> repo with pre-configured <code>.vscode/mcp.json</code>, <code>.copilot/</code>, and <code>azure.yaml</code></li>
+        <li><strong>Onboarding docs</strong>: a 30-minute getting-started guide for new team members</li>
+      </ul>
+
+      <div class="callout">
+        <strong>Contoso's shared skill layout</strong>
+        <pre><code>contoso-hve-skills/
+├── skills/
+│   ├── caira-contoso/          # CAIRA + Contoso conventions
+│   │   └── SKILL.md
+│   ├── contoso-auth/           # Internal auth patterns
+│   │   └── SKILL.md
+│   └── contoso-data-platform/  # Domain data access patterns
+│       └── SKILL.md
+├── instructions/
+│   ├── coding-standards.instructions.md
+│   ├── security-baseline.instructions.md
+│   └── adr-template.instructions.md
+├── prompts/
+│   ├── new-service.prompt.md
+│   └── brownfield-extend.prompt.md
+└── README.md</code></pre>
+      </div>
+
+      <h3>The team playbook (excerpt)</h3>
+      <table>
+        <thead>
+          <tr><th>Situation</th><th>Required action</th><th>Agent / tool</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>New feature or service</td><td>Full RPI loop (all 4 phases)</td><td>RPI Agent</td></tr>
+          <tr><td>Bug fix with existing tests</td><td>Implement + Review only</td><td>RPI Agent (skip research)</td></tr>
+          <tr><td>Architectural fork (new dependency, protocol change)</td><td>Escalate to reviewer</td><td>System Architecture Reviewer → ADR</td></tr>
+          <tr><td>Infra change</td><td>Research against Learn MCP first</td><td>RPI Agent + Learn MCP</td></tr>
+          <tr><td>Self-contained feature for delegation</td><td>Write issue, assign to Coding Agent</td><td>GitHub Coding Agent</td></tr>
+        </tbody>
+      </table>
+
+      <div class="callout tip">
+        <strong>Establish success criteria</strong>
+        <p>
+          Phase 2 succeeds when a new team can go from zero to first RPI-driven
+          feature in under a day using the shared assets — without needing the
+          pilot team to hold their hand.
+        </p>
+      </div>
+    </section>
+
+    <!-- PHASE 3 -->
+    <section id="phase-3" class="timeline-section">
+      <div class="timeline-marker">
+        <span class="badge">3</span>
+      </div>
+      <h2>Phase 3: Scale</h2>
+      <p class="meta">All 12 teams &middot; centralized governance &middot; ongoing</p>
+      <p>
+        HVE is now the default engineering workflow. A platform engineering team
+        maintains the shared assets, measures adoption, and evolves the
+        organization's prompt and skill library.
+      </p>
+
+      <h3>What they operate</h3>
+      <ul>
+        <li>A <strong>centralized skill repo</strong> with versioned releases and a changelog</li>
+        <li><strong>Governance policies</strong>: which models are approved, which MCP servers are allowed, security review gates</li>
+        <li><strong>Metrics dashboards</strong>: RPI completion rates, self-heal success, time-to-deploy per team</li>
+        <li><strong>Inner-source contribution model</strong>: any team can propose new skills or instructions via PR</li>
+      </ul>
+
+      <div class="callout">
+        <strong>Contoso's governance model</strong>
+        <pre><code># .github/copilot-instructions.md (org-wide)
+# Applied to every repo in the Contoso GitHub org
+
+## Security baseline
+- All Azure resources use Managed Identity. No connection strings in code.
+- All IaC must pass `tfsec` and `checkov` before merge.
+- ADRs required for any new external dependency.
+
+## Approved MCP servers
+- Microsoft Learn MCP (https://learn.microsoft.com/api/mcp)
+- Azure MCP (internal instance)
+
+## Required phases
+- Research phase is mandatory for any new service or API integration.
+- Review phase runs automatically in CI via the RPI Validator.</code></pre>
+      </div>
+
+      <h3>Scaling metrics Contoso tracks</h3>
+      <table>
+        <thead>
+          <tr><th>Metric</th><th>Before HVE</th><th>After (6 months)</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Avg. iterations to working feature</td><td>8.2</td><td>4.1</td></tr>
+          <tr><td>Bugs caught before PR review</td><td>12%</td><td>47%</td></tr>
+          <tr><td>Time from spec to first deploy</td><td>3.5 weeks</td><td>1.2 weeks</td></tr>
+          <tr><td>IaC reuse rate across teams</td><td>15%</td><td>78%</td></tr>
+          <tr><td>ADRs produced per quarter</td><td>2</td><td>14</td></tr>
+        </tbody>
+      </table>
+
+      <div class="callout tip">
+        <strong>Scale success criteria</strong>
+        <p>
+          The methodology is truly scaled when removing the platform team from
+          the loop does not degrade adoption. Teams self-serve from the shared
+          library, contribute back improvements, and the metrics stay healthy.
+        </p>
+      </div>
+    </section>
+
+    <!-- CENTRALIZED CONTENT -->
+    <section id="reuse">
+      <p class="eyebrow">Centralized content to reuse</p>
+      <h2>Real examples from HVE Core</h2>
+      <p>
+        These are actual reusable assets from the HVE ecosystem. An organization
+        builds a library of these, versioned and shared across all teams.
+      </p>
+      <table>
+        <thead>
+          <tr><th>Asset type</th><th>Example</th><th>What it does</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Skill</td>
+            <td><code>caira/SKILL.md</code></td>
+            <td>Gives Copilot knowledge of CAIRA reference architectures for scaffolding</td>
+          </tr>
+          <tr>
+            <td>Instruction</td>
+            <td><code>csharp.instructions.md</code></td>
+            <td>Enforces C# coding standards on every generated file matching <code>*.cs</code></td>
+          </tr>
+          <tr>
+            <td>Instruction</td>
+            <td><code>terraform.instructions.md</code></td>
+            <td>Applies Terraform conventions to all <code>*.tf</code> files</td>
+          </tr>
+          <tr>
+            <td>Prompt</td>
+            <td><code>pull-request.instructions.md</code></td>
+            <td>Generates structured PR descriptions from diff analysis</td>
+          </tr>
+          <tr>
+            <td>Agent</td>
+            <td>System Architecture Reviewer</td>
+            <td>Produces ADRs grounded in Well-Architected pillars when architectural forks appear</td>
+          </tr>
+          <tr>
+            <td>Agent</td>
+            <td>RPI Validator</td>
+            <td>Validates that RPI artifacts meet quality gates before merging</td>
+          </tr>
+          <tr>
+            <td>MCP config</td>
+            <td><code>.vscode/mcp.json</code></td>
+            <td>Pre-configured Learn MCP and Azure MCP server connections</td>
+          </tr>
+          <tr>
+            <td>Template repo</td>
+            <td><code>contoso-starter</code></td>
+            <td>New repo with all skills, instructions, and IaC pre-wired</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="callout tip">
+        <strong>The compound effect</strong>
+        <p>
+          Each asset is small on its own. The power is in the combination: a new
+          team member clones the starter repo and immediately has coding standards,
+          security baselines, IaC patterns, and the RPI loop configured — without
+          reading a wiki or attending a training session.
+        </p>
+      </div>
+    </section>
+
+    <!-- GETTING STARTED -->
+    <section id="start" class="center">
+      <h2>Start your own adoption</h2>
+      <p class="lead" style="margin: 0 auto 24px;">
+        You do not need 12 teams to begin. Start with one project, measure the
+        delta, then share what works.
+      </p>
+      <div class="grid grid-3">
+        <div class="card">
+          <h3>1. Run the walkthrough</h3>
+          <p class="muted">Build Museum Sidekick end-to-end. This is your pilot proof point.</p>
+          <a class="btn btn-secondary" href="walkthrough.html" style="margin-top: 12px;">Walkthrough &rarr;</a>
+        </div>
+        <div class="card">
+          <h3>2. Package your learnings</h3>
+          <p class="muted">Create a shared skills repo with your organization's domain knowledge and coding standards.</p>
+          <a class="btn btn-secondary" href="reference.html#copilot-skills" style="margin-top: 12px;">See skill examples &rarr;</a>
+        </div>
+        <div class="card">
+          <h3>3. Measure and iterate</h3>
+          <p class="muted">Track iterations, self-heal rates, and deploy times. Let the data drive the next expansion.</p>
+          <a class="btn btn-secondary" href="reference.html#building-blocks" style="margin-top: 12px;">Building blocks &rarr;</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <span>HVE Practices Lab &middot; Built with GitHub Copilot</span>
+      <span>
+        <a href="https://github.com/microsoft/hve-core">HVE Core</a> &middot;
+        <a href="https://github.com/microsoft/CAIRA">CAIRA</a> &middot;
+        <a href="https://metmuseum.github.io/">Met API</a>
+      </span>
+    </div>
+  </footer>
+</body>
+</html>
