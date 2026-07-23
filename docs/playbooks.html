@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Playbooks — HVE Practices Lab</title>
+  <meta name="description" content="SDLC bottleneck playbooks showing how HVE Core and HVE Squad tools solve real engineering problems for partner teams." />
+  <link rel="icon" type="image/jpeg" href="assets/icon.jpg" />
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav">
+      <a class="brand" href="index.html">
+        <span class="logo" aria-hidden="true">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2 20.5 7v10L12 22 3.5 17V7L12 2Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+            <path d="M12 7v10M7.5 9.5l9 5M16.5 9.5l-9 5" stroke="currentColor" stroke-width="1.2"/>
+          </svg>
+        </span>
+        HVE Practices Lab
+      </a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="walkthrough.html">Walkthrough</a>
+        <a href="ideas.html">Projects</a>
+        <a href="playbooks.html" class="active">Playbooks</a>
+        <a href="reference.html">References</a>
+        <a href="adopt-scale.html">Adopt &amp; Scale</a>
+        <a href="https://github.com/rodanthi-alexiou/roda-hve">GitHub</a>
+      </div>
+    </nav>
+  </header>
+
+  <div class="hero">
+    <div class="wrap">
+      <p class="eyebrow">Engagement Playbooks</p>
+      <h1>Bottleneck Case Catalog</h1>
+      <p class="lead">
+        Each playbook maps a real SDLC bottleneck to the HVE Core and HVE Squad
+        tools that solve it — with demo scripts, KPIs, and before/after evidence.
+      </p>
+    </div>
+  </div>
+
+  <main>
+    <!-- ENGAGEMENT MODEL FLOW -->
+    <section id="engagement-model">
+      <p class="eyebrow">The engagement model</p>
+      <h2>Identify → Design → Test → Measure → Scale</h2>
+      <p class="muted" style="max-width: 640px;">
+        Every playbook follows the same 5-stage engagement model. Surface the
+        bottleneck, map it to AI capabilities, run a 2–4 week pilot, measure
+        the delta, then scale what works.
+      </p>
+      <div class="grid grid-5" style="margin-top: 32px; gap: 12px;">
+        <div class="card" style="text-align: center; padding: 20px 12px;">
+          <div style="font-size: 1.5rem; margin-bottom: 8px;">🔍</div>
+          <h3 style="font-size: 0.85rem; margin: 0;">Identify</h3>
+          <p class="muted" style="font-size: 0.75rem; margin-top: 6px;">Surface the bottleneck with data</p>
+        </div>
+        <div class="card" style="text-align: center; padding: 20px 12px;">
+          <div style="font-size: 1.5rem; margin-bottom: 8px;">✏️</div>
+          <h3 style="font-size: 0.85rem; margin: 0;">Design</h3>
+          <p class="muted" style="font-size: 0.75rem; margin-top: 6px;">Map to AI capabilities</p>
+        </div>
+        <div class="card" style="text-align: center; padding: 20px 12px;">
+          <div style="font-size: 1.5rem; margin-bottom: 8px;">🧪</div>
+          <h3 style="font-size: 0.85rem; margin: 0;">Test</h3>
+          <p class="muted" style="font-size: 0.75rem; margin-top: 6px;">Run a 2–4 week pilot</p>
+        </div>
+        <div class="card" style="text-align: center; padding: 20px 12px;">
+          <div style="font-size: 1.5rem; margin-bottom: 8px;">📊</div>
+          <h3 style="font-size: 0.85rem; margin: 0;">Measure</h3>
+          <p class="muted" style="font-size: 0.75rem; margin-top: 6px;">Before/after comparison</p>
+        </div>
+        <div class="card" style="text-align: center; padding: 20px 12px;">
+          <div style="font-size: 1.5rem; margin-bottom: 8px;">🚀</div>
+          <h3 style="font-size: 0.85rem; margin: 0;">Scale</h3>
+          <p class="muted" style="font-size: 0.75rem; margin-top: 6px;">Roll out org-wide</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CASE CARDS -->
+    <section id="cases">
+      <p class="eyebrow">Playbooks</p>
+      <h2>Active cases</h2>
+      <div class="grid grid-2" id="cases-grid">
+        <div class="card">
+          <span class="pill" style="color: var(--green); border-color: var(--green-soft); background: var(--green-soft);">In progress</span>
+          <h3 style="margin-top: 14px;">Slow Reviews / Large PRs</h3>
+          <p class="muted">
+            PR Review agent + Functional Code Review + encoded coding standards
+            cut cycle time from days to hours.
+          </p>
+          <div class="tags" style="margin: 12px 0;">
+            <span class="pill">PR Review</span>
+            <span class="pill">Functional Code Review</span>
+            <span class="pill">/pull-request</span>
+          </div>
+          <a class="btn btn-secondary" href="https://github.com/rodanthi-alexiou/roda-hve/tree/main/cases/slow-reviews">View playbook →</a>
+        </div>
+
+        <div class="card">
+          <span class="pill" style="color: var(--green); border-color: var(--green-soft); background: var(--green-soft);">In progress</span>
+          <h3 style="margin-top: 14px;">Unclear Requirements / Rework</h3>
+          <p class="muted">
+            BRD Builder + PRD Builder + Task Planner drive a Research → Plan loop
+            that eliminates ambiguity before code is written.
+          </p>
+          <div class="tags" style="margin: 12px 0;">
+            <span class="pill">BRD Builder</span>
+            <span class="pill">PRD Builder</span>
+            <span class="pill">/rpi</span>
+          </div>
+          <a class="btn btn-secondary" href="https://github.com/rodanthi-alexiou/roda-hve/tree/main/cases/unclear-requirements">View playbook →</a>
+        </div>
+
+        <div class="card" style="border-style: dashed;">
+          <span class="pill">Planned</span>
+          <h3 style="margin-top: 14px;">Flaky or Missing Tests</h3>
+          <p class="muted">
+            Test-generation agents + coverage KPIs to close gaps and stop
+            flaky tests from blocking releases.
+          </p>
+        </div>
+
+        <div class="card" style="border-style: dashed;">
+          <span class="pill">Planned</span>
+          <h3 style="margin-top: 14px;">Long Developer Onboarding</h3>
+          <p class="muted">
+            Project standards + HVE Learning katas to reduce ramp-up time
+            from months to weeks.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="center">
+      <p class="eyebrow">Add your own</p>
+      <h2>Onboard a new case</h2>
+      <p class="lead" style="margin: 0 auto 24px; max-width: 560px;">
+        Use the <code>/onboard-case</code> prompt in Copilot Chat to scaffold a
+        new playbook. It creates the folder, updates the catalog, and adds a card
+        to this page automatically.
+      </p>
+      <div class="btn-row" style="justify-content: center;">
+        <a class="btn btn-primary" href="https://github.com/rodanthi-alexiou/roda-hve/tree/main/cases">Browse all cases →</a>
+        <a class="btn btn-secondary" href="adopt-scale.html">Adopt &amp; Scale</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <span>HVE Practices Lab &middot; Built with GitHub Copilot</span>
+      <span>
+        <a href="https://github.com/microsoft/hve-core">HVE Core</a> &middot;
+        <a href="https://peter-n91.github.io/hve-squad/">HVE Squad</a> &middot;
+        <a href="https://github.com/microsoft/CAIRA">CAIRA</a>
+      </span>
+    </div>
+  </footer>
+</body>
+</html>
